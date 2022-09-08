@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:makerre_flutter/models/review_model.dart';
 import 'package:makerre_flutter/widgets/app_drawer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -16,21 +18,6 @@ class CarouselItem {
   });
 }
 
-class ProductItem {
-  final String image;
-  final String title;
-  final String subtitle;
-  final String description;
-  final double rating;
-  ProductItem({
-    required this.image,
-    required this.title,
-    required this.subtitle,
-    required this.description,
-    required this.rating,
-  });
-}
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -40,6 +27,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int activeIndex = 0;
+
+  final List<ReviewModel> productList = ReviewModel.reviewList;
 
   List<CarouselItem> carouselItem = [
     CarouselItem(
@@ -62,37 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
       date: '09.03 - 09.15',
       text: '원스모어 첫 회원 10% 할인 쿠폰',
     ),
-  ];
-
-  List<ProductItem> productList = [
-    ProductItem(
-      image: 'assets/images/pants.png',
-      title: '김**님',
-      subtitle: '가방 리폼',
-      description: '처음엔 반신반의한 마음으로 신청을 했지만 받아보니 너무 제 스타일대로 만들어 주셔...',
-      rating: 4,
-    ),
-    ProductItem(
-      image: 'assets/images/bag.png',
-      title: '김**님',
-      subtitle: '가방 리폼',
-      description: '처음엔 반신반의한 마음으로 신청을 했지만 받아보니 너무 제 스타일대로 만들어 주셔...',
-      rating: 4,
-    ),
-    ProductItem(
-      image: 'assets/images/fabric.png',
-      title: '김**님',
-      subtitle: '가방 리폼',
-      description: '처음엔 반신반의한 마음으로 신청을 했지만 받아보니 너무 제 스타일대로 만들어 주셔...',
-      rating: 4,
-    ),
-    ProductItem(
-      image: 'assets/images/shirt.png',
-      title: '김**님',
-      subtitle: '가방 리폼',
-      description: '처음엔 반신반의한 마음으로 신청을 했지만 받아보니 너무 제 스타일대로 만들어 주셔...',
-      rating: 4,
-    )
   ];
 
   @override
@@ -278,7 +236,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          GoRouter.of(context).goNamed('best-review');
+                        },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -312,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: productList.length,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 20), 
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemBuilder: (context, index) {
                   return Card(
                     child: SizedBox(

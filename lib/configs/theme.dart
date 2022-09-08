@@ -80,7 +80,7 @@ ThemeData theme() {
         borderRadius: BorderRadius.circular(4),
       ),
       shadowColor: const Color.fromRGBO(0, 0, 0, 0.15),
-      elevation: 6,
+      elevation: 3,
     ),
   );
 }
