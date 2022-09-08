@@ -73,5 +73,14 @@ ThemeData theme() {
     errorColor: const Color(0xFFFF4200),
     iconTheme: const IconThemeData(color: Color(0xFF000000)),
     bottomAppBarColor: const Color(0xFF424242),
+    cardTheme: CardTheme(
+      color: const Color(0xFFFFFFFF),
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+      ),
+      shadowColor: const Color.fromRGBO(0, 0, 0, 0.15),
+      elevation: 6,
+    ),
   );
 }

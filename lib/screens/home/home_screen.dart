@@ -115,8 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 276.0,
                     viewportFraction: 1,
                     initialPage: activeIndex,
-                    onPageChanged:
-                        (int index, CarouselPageChangedReason reason) {
+                    onPageChanged: (int index, CarouselPageChangedReason reason) {
                       setState(() {
                         activeIndex = index;
                       });
@@ -132,8 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 20.0, bottom: 32.25),
+                        padding: const EdgeInsets.only(left: 20.0, bottom: 32.25),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,13 +260,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         hintText: '원하는 서비스를 검색해보세요.',
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor, width: 2),
+                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor, width: 2),
+                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
                         ),
                       ),
                     ),
@@ -301,57 +297,85 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    height: 350,
-                    child: ListView.builder(
-                      itemCount: productList.length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.only(right: 10),
-                      itemBuilder: (context, index) {
-                        return Card(
-                          clipBehavior: Clip.hardEdge,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(productList[index].image),
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              height: 266,
+              child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(
+                    width: 15,
+                  );
+                },
+                itemCount: productList.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 20), 
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: SizedBox(
+                      width: 250,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(productList[index].image),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
                                   children: [
-                                    Text(productList[index].title),
-                                    Text(productList[index].subtitle),
+                                    Text(
+                                      productList[index].title,
+                                      style: Theme.of(context).textTheme.headline5,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      productList[index].subtitle,
+                                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: const Color(0xFFBDBDBD),
+                                          ),
+                                    ),
+                                    const SizedBox(width: 17),
                                     RatingBar.builder(
                                       initialRating: productList[index].rating,
                                       minRating: 1,
                                       direction: Axis.horizontal,
                                       allowHalfRating: false,
                                       itemCount: 5,
-                                      itemSize: 25,
+                                      itemSize: 16,
                                       itemBuilder: (context, _) => const Icon(
                                         Icons.star_rate_rounded,
                                         color: Colors.amber,
                                       ),
+                                      ignoreGestures: true,
                                       onRatingUpdate: (rating) {
                                         print(rating);
                                       },
                                     )
                                   ],
                                 ),
-                              )
-                            ],
+                                const SizedBox(height: 14),
+                                Text(
+                                  productList[index].description,
+                                  softWrap: true,
+                                  style: Theme.of(context).textTheme.headline6,
+                                ),
+                              ],
+                            ),
                           ),
-                        );
-                      },
+                        ],
+                      ),
                     ),
-                  )
-                ],
+                  );
+                },
               ),
             ),
+            const SizedBox(height: 52),
           ],
         ),
       ),
