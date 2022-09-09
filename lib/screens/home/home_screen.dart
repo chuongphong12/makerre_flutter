@@ -4,6 +4,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makerre_flutter/widgets/app_drawer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'banner/banner_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class CarouselItem {
   final String image;
@@ -115,45 +117,53 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 276.0,
                     viewportFraction: 1,
                     initialPage: activeIndex,
-                    onPageChanged: (int index, CarouselPageChangedReason reason) {
+                    onPageChanged:
+                        (int index, CarouselPageChangedReason reason) {
                       setState(() {
                         activeIndex = index;
                       });
                     },
                   ),
                   items: carouselItem.map((val) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(val.image),
-                          fit: BoxFit.cover,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        GoRouter.of(context).go('/');
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(val.image),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0, bottom: 32.25),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              val.date,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(color: Colors.white),
-                            ),
-                            SizedBox(
-                              width: 178,
-                              child: Text(
-                                val.text,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 20.0, bottom: 32.25),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                val.date,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .bodyText1!
                                     .copyWith(color: Colors.white),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 178,
+                                child: Text(
+                                  val.text,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -260,11 +270,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         hintText: '원하는 서비스를 검색해보세요.',
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor, width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor, width: 2),
                         ),
                       ),
                     ),
@@ -312,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: productList.length,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 20), 
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemBuilder: (context, index) {
                   return Card(
                     child: SizedBox(
@@ -330,12 +342,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     Text(
                                       productList[index].title,
-                                      style: Theme.of(context).textTheme.headline5,
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
                                     ),
                                     const SizedBox(width: 4),
                                     Text(
                                       productList[index].subtitle,
-                                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
                                             fontWeight: FontWeight.w600,
                                             color: const Color(0xFFBDBDBD),
                                           ),
