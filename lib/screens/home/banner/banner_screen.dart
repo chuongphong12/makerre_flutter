@@ -14,3 +14,4 @@ class BannerScreen extends StatelessWidget {
     );
   }
 }
+
