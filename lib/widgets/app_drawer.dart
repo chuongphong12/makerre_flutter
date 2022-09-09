@@ -8,6 +8,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       elevation: 2,
+      
       child: SafeArea(
         child: Column(
           children: [
