@@ -58,26 +58,75 @@ class SearchResultScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('총 123건'),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
+                          Text(
+                            '총 123건',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          Material(
+                            shape: RoundedRectangleBorder(
                               side: const BorderSide(
+                                width: 1,
                                 color: Color(0xFFBDBDBD),
                               ),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  '거리순',
-                                  style: Theme.of(context).textTheme.bodyText1,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(20),
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  enableDrag: true,
+                                  constraints: const BoxConstraints.tightFor(
+                                      height: 174, width: double.infinity),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  builder: (context) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {},
+                                          child: const Text('평점순'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {},
+                                          child: const Text('평점순'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {},
+                                          child: const Text('평점순'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 5,
                                 ),
-                                const Icon(
-                                  Icons.keyboard_arrow_down,
-                                  size: 20,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '거리순',
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                    const Icon(
+                                      Icons.keyboard_arrow_down,
+                                      size: 20,
+                                      color: Colors.black,
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           )
                         ],
