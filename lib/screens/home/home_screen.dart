@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+<<<<<<< HEAD
+=======
+import 'package:makerre_flutter/models/review_model.dart';
+>>>>>>> 2423446476e2ba50d8f5f8fa208ecaf88f1247e4
 import 'package:makerre_flutter/widgets/app_drawer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -17,21 +21,6 @@ class CarouselItem {
   });
 }
 
-class ProductItem {
-  final String image;
-  final String title;
-  final String subtitle;
-  final String description;
-  final double rating;
-  ProductItem({
-    required this.image,
-    required this.title,
-    required this.subtitle,
-    required this.description,
-    required this.rating,
-  });
-}
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -41,6 +30,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int activeIndex = 0;
+
+  final List<ReviewModel> productList = ReviewModel.reviewList;
 
   List<CarouselItem> carouselItem = [
     CarouselItem(
@@ -63,37 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
       date: '09.03 - 09.15',
       text: '원스모어 첫 회원 10% 할인 쿠폰',
     ),
-  ];
-
-  List<ProductItem> productList = [
-    ProductItem(
-      image: 'assets/images/pants.png',
-      title: '김**님',
-      subtitle: '가방 리폼',
-      description: '처음엔 반신반의한 마음으로 신청을 했지만 받아보니 너무 제 스타일대로 만들어 주셔...',
-      rating: 4,
-    ),
-    ProductItem(
-      image: 'assets/images/bag.png',
-      title: '김**님',
-      subtitle: '가방 리폼',
-      description: '처음엔 반신반의한 마음으로 신청을 했지만 받아보니 너무 제 스타일대로 만들어 주셔...',
-      rating: 4,
-    ),
-    ProductItem(
-      image: 'assets/images/fabric.png',
-      title: '김**님',
-      subtitle: '가방 리폼',
-      description: '처음엔 반신반의한 마음으로 신청을 했지만 받아보니 너무 제 스타일대로 만들어 주셔...',
-      rating: 4,
-    ),
-    ProductItem(
-      image: 'assets/images/shirt.png',
-      title: '김**님',
-      subtitle: '가방 리폼',
-      description: '처음엔 반신반의한 마음으로 신청을 했지만 받아보니 너무 제 스타일대로 만들어 주셔...',
-      rating: 4,
-    )
   ];
 
   @override
@@ -136,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fit: BoxFit.cover,
                           ),
                         ),
+<<<<<<< HEAD
                         child: Padding(
                           padding:
                               const EdgeInsets.only(left: 20.0, bottom: 32.25),
@@ -145,6 +106,27 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Text(
                                 val.date,
+=======
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 20.0, bottom: 32.25),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              val.date,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(color: Colors.white),
+                            ),
+                            SizedBox(
+                              width: 178,
+                              child: Text(
+                                val.text,
+>>>>>>> 2423446476e2ba50d8f5f8fa208ecaf88f1247e4
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
@@ -257,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TextField(
                       readOnly: true,
                       onTap: () {
-                        print('tap');
+                        GoRouter.of(context).goNamed('search');
                       },
                       decoration: InputDecoration(
                         suffixIcon: const Icon(
@@ -288,7 +270,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          GoRouter.of(context).goNamed('best-review');
+                        },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -312,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             SizedBox(
-              height: 266,
+              height: 278,
               child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) {
                   return const SizedBox(
