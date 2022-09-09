@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   items: carouselItem.map((val) {
                     return GestureDetector(
                       onTap: () {
-                        GoRouter.of(context).goNamed('banner');
+                        GoRouter.of(context).go('/banner');
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
