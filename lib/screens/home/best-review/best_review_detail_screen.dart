@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makerre_flutter/models/review_model.dart';
 
@@ -36,10 +37,14 @@ class BestReviewDetailScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/celine-bag.png',
-                      width: 80,
-                      fit: BoxFit.cover,
+                    Material(
+                      borderRadius: BorderRadius.circular(4),
+                      clipBehavior: Clip.hardEdge,
+                      child: Image.asset(
+                        'assets/images/celine-bag.png',
+                        width: 80,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     const SizedBox(width: 20),
                     Column(
@@ -68,6 +73,66 @@ class BestReviewDetailScreen extends StatelessWidget {
                   thickness: 1,
                   indent: 0,
                   endIndent: 0,
+                ),
+                const SizedBox(height: 32),
+                Row(
+                  children: [
+                    Text(
+                      review.title,
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      review.subtitle,
+                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                            color: const Color(0xFFBDBDBD),
+                          ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    RatingBar.builder(
+                      initialRating: review.rating,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: false,
+                      itemCount: 5,
+                      itemSize: 22,
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star_rate_rounded,
+                        color: Colors.amber,
+                      ),
+                      ignoreGestures: true,
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    ),
+                    const SizedBox(width: 11),
+                    Text(
+                      '1개월 전',
+                      style: Theme.of(context).textTheme.headline6,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  review.description,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(height: 1.6),
+                ),
+                const SizedBox(height: 16),
+                Material(
+                  borderRadius: BorderRadius.circular(4),
+                  clipBehavior: Clip.hardEdge,
+                  child: Image.asset(
+                    review.image,
+                    width: double.maxFinite,
+                    fit: BoxFit.cover,
+                  ),
                 )
               ],
             ),

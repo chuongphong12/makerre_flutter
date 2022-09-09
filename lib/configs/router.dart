@@ -6,6 +6,8 @@ import 'package:makerre_flutter/screens/home/banner/banner_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_detail_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_screen.dart';
 import 'package:makerre_flutter/screens/home/home_screen.dart';
+import 'package:makerre_flutter/screens/home/search/search_result_screen.dart';
+import 'package:makerre_flutter/screens/home/search/search_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
@@ -28,7 +30,7 @@ class AppRouter {
                 name: 'review-detail',
                 path: ':id',
                 builder: (context, state) {
-                  final reviewId = state.params['id'] as double;
+                  final reviewId = state.params['id'];
 
                   return BestReviewDetailScreen(
                     review: _reviewFrom(reviewId),
@@ -43,7 +45,25 @@ class AppRouter {
             builder: (context, state) {
               return const BannerScreen();
             },
-          )
+          ),
+          GoRoute(
+              name: 'search',
+              path: 'search',
+              builder: (context, state) {
+                return const SearchScreen();
+              },
+              routes: <GoRoute>[
+                GoRoute(
+                  name: 'search-result',
+                  path: ':name',
+                  builder: (context, state) {
+                    final result = state.params['name'];
+                    return SearchResultScreen(
+                      result: result!,
+                    );
+                  },
+                )
+              ]),
         ],
       ),
       GoRoute(
@@ -67,6 +87,6 @@ class AppRouter {
   );
 }
 
-ReviewModel _reviewFrom(double id) {
-  return ReviewModel.reviewList.where((val) => val.id == id).first;
+ReviewModel _reviewFrom(String? id) {
+  return ReviewModel.reviewList.where((val) => val.id.toString() == id).first;
 }
