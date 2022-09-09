@@ -85,31 +85,40 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: () {
                         GoRouter.of(context).goNamed('banner');
                       },
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 20.0, bottom: 32.25),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              val.date,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(color: Colors.white),
-                            ),
-                            SizedBox(
-                              width: 178,
-                              child: Text(
-                                val.text,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(val.image),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 20.0, bottom: 32.25),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                val.date,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
                                     .copyWith(color: Colors.white),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 178,
+                                child: Text(
+                                  val.text,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
