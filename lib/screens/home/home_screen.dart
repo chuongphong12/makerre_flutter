@@ -2,10 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/widgets/app_drawer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'banner/banner_screen.dart';
-import 'package:go_router/go_router.dart';
 
 class CarouselItem {
   final String image;
@@ -127,8 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   items: carouselItem.map((val) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
-                        GoRouter.of(context).go('/');
+                        GoRouter.of(context).goNamed('banner');
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,

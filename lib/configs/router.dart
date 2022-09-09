@@ -29,6 +29,7 @@ class AppRouter {
             ],
           ),
           GoRoute(
+            name: 'banner',
             path: 'banner',
             builder: (context, state) {
               return const BannerScreen();
