@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+<<<<<<< HEAD
+=======
 import 'package:makerre_flutter/models/review_model.dart';
+>>>>>>> 2423446476e2ba50d8f5f8fa208ecaf88f1247e4
 import 'package:makerre_flutter/widgets/app_drawer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -81,13 +84,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                   items: carouselItem.map((val) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(val.image),
-                          fit: BoxFit.cover,
+                    return GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).goNamed('banner');
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(val.image),
+                            fit: BoxFit.cover,
+                          ),
                         ),
+<<<<<<< HEAD
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 20.0, bottom: 32.25),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                val.date,
+=======
                       ),
                       child: Padding(
                         padding:
@@ -107,13 +126,24 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: 178,
                               child: Text(
                                 val.text,
+>>>>>>> 2423446476e2ba50d8f5f8fa208ecaf88f1247e4
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline2!
+                                    .bodyText1!
                                     .copyWith(color: Colors.white),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 178,
+                                child: Text(
+                                  val.text,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
