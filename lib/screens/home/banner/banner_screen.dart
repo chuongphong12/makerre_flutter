@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BannerScreen extends StatelessWidget {
   const BannerScreen({super.key});
@@ -6,12 +7,40 @@ class BannerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Image.network(
-            'https://64.media.tumblr.com/0311338c2f1aa84f4b2511fc8c419048/ebcedf09e8064638-aa/s1280x1920/a27f6bdecdeef0c832717560e86d0e6f808594b2.jpg'),
-      ),
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: SvgPicture.asset(
+            'assets/images/icons/Logo.svg',
+            width: 120,
+          ),
+          centerTitle: true,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(48),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: const Color(0xFFE0E0E0),
+                ),
+                SizedBox(
+                  height: 40,
+                  child: BackButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: Color(0xFFE0E0E0),
+                ),
+              ],
+            ),
+          )),
+      body: SingleChildScrollView(child: Image.asset('assets/images/bg.jpeg')),
     );
   }
 }
-
