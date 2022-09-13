@@ -18,20 +18,23 @@ class BestReviewScreen extends StatelessWidget {
           width: 120,
         ),
         centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48),
+          child: AppBar(
+            title: const Text('베스트 리뷰'),
+            centerTitle: true,
+            shape: const Border.symmetric(
+              horizontal: BorderSide(
+                color: Color(0xFFE0E0E0),
+                width: 1,
+              ),
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            AppBar(
-              title: const Text('베스트 리뷰'),
-              centerTitle: true,
-              shape: const Border.symmetric(
-                horizontal: BorderSide(
-                  color: Color(0xFFE0E0E0),
-                  width: 1,
-                ),
-              ),
-            ),
             const SizedBox(height: 24),
             ListView.separated(
               separatorBuilder: (BuildContext context, int index) {
@@ -46,11 +49,10 @@ class BestReviewScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   borderRadius: BorderRadius.circular(4),
-                  splashColor:
-                      Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                  splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                   onTap: () {
-                    GoRouter.of(context).goNamed('review-detail',
-                        params: {'id': reviewList[index].id.toString()});
+                    GoRouter.of(context)
+                        .goNamed('review-detail', params: {'id': reviewList[index].id.toString()});
                   },
                   child: Card(
                     child: Column(
@@ -70,16 +72,12 @@ class BestReviewScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     reviewList[index].title,
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
+                                    style: Theme.of(context).textTheme.headline5,
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
                                     reviewList[index].subtitle,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2!
-                                        .copyWith(
+                                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: const Color(0xFFBDBDBD),
                                         ),

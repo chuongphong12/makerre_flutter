@@ -271,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             SizedBox(
-              height: 278,
+              height: MediaQuery.of(context).size.height * 0.32,
               child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) {
                   return const SizedBox(
