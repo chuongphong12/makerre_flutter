@@ -87,6 +87,7 @@ class AppDrawer extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 16),
                   child: GestureDetector(
                     onTap: () {
+                      GoRouter.of(context).go('/mypage');
                       print("click my page");
                     },
                     child: Text(

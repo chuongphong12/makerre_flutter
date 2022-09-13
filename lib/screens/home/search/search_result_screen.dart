@@ -13,7 +13,7 @@ class SearchResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const bool hasResult = true;
+    const bool hasResult = false;
     return Scaffold(
       appBar: AppBar(
         title: SvgPicture.asset(
