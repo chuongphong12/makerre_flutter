@@ -6,11 +6,7 @@ import 'package:makerre_flutter/screens/home/banner/banner_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_detail_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_screen.dart';
 import 'package:makerre_flutter/screens/home/home_screen.dart';
-<<<<<<< HEAD
 import 'package:makerre_flutter/screens/home/mypage/mypage_screen.dart';
-import 'package:makerre_flutter/screens/home/search/search_result_screen.dart';
-=======
->>>>>>> search
 import 'package:makerre_flutter/screens/home/search/search_screen.dart';
 
 class AppRouter {
