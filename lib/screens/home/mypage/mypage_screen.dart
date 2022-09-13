@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/widgets/app_drawer.dart';
+
+class ServicesCenter {
+  final String title;
+  final String path;
+  ServicesCenter({
+    required this.title,
+    required this.path,
+  });
+}
 
 class MyPageScreen extends StatefulWidget {
   const MyPageScreen({super.key});
@@ -11,11 +21,11 @@ class MyPageScreen extends StatefulWidget {
 
 class _MyPageScreenState extends State<MyPageScreen> {
   final List<String> orders = ['신규 요청서', '나의 거래', '스크랩', '내가 쓴 리뷰'];
-  final List<String> servicesCenter = [
-    '문의하기',
-    '이용약관',
-    '개인정보 처리방침',
-    '마케팅 수신 동의 약관'
+  final List<ServicesCenter> servicesCenter = [
+    ServicesCenter(title: '문의하기', path: '문의하기'),
+    ServicesCenter(title: '이용약관', path: '이용약관'),
+    ServicesCenter(title: '개인정보 처리방침', path: '개인정보 처리방침'),
+    ServicesCenter(title: '마케팅 수신 동의 약관', path: '마케팅 수신 동의 약관'),
   ];
 
   @override
@@ -41,24 +51,30 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: IconButton(
-                      iconSize: 20,
-                      padding: EdgeInsets.zero,
-                      onPressed: (() {}),
-                      icon: const Icon(Icons.edit),
-                      style: ButtonStyle(
-                          overlayColor: MaterialStateProperty.all(
-                              const Color.fromARGB(77, 219, 219, 219)),
-                          foregroundColor: MaterialStateProperty.all(
-                              const Color(0xFFbdbdbdb)),
-                          minimumSize: MaterialStateProperty.all(Size(30, 30)),
-                          elevation: MaterialStateProperty.all(5),
-                          shadowColor: MaterialStateProperty.all(
-                              const Color.fromARGB(223, 236, 235, 235)),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white)),
-                    )),
+                  padding: const EdgeInsets.only(left: 8),
+                  child: IconButton(
+                    iconSize: 20,
+                    padding: EdgeInsets.zero,
+                    onPressed: (() {}),
+                    icon: const Icon(Icons.edit),
+                    style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.all(
+                          const Color.fromARGB(77, 219, 219, 219),
+                        ),
+                        foregroundColor: MaterialStateProperty.all(
+                          const Color(0xffbdbdbdb),
+                        ),
+                        minimumSize: MaterialStateProperty.all(
+                          const Size(30, 30),
+                        ),
+                        elevation: MaterialStateProperty.all(5),
+                        shadowColor: MaterialStateProperty.all(
+                          const Color.fromARGB(223, 236, 235, 235),
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white)),
+                  ),
+                ),
               ],
             ),
             const Padding(
@@ -79,67 +95,72 @@ class _MyPageScreenState extends State<MyPageScreen> {
               padding: const EdgeInsets.only(
                   top: 40, left: 20, right: 20, bottom: 40),
               child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Text(
-                        "주문",
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Text(
+                      "주문",
+                      style: Theme.of(context).textTheme.headline3,
                     ),
-                    Container(
-                      height: 1,
-                      color: Colors.black,
+                  ),
+                  Container(
+                    height: 1,
+                    color: Colors.black,
+                  ),
+                  ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: orders.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 0),
+                          title: Text(
+                            orders[index],
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontWeight: FontWeight.normal),
+                          ),
+                          onTap: () {},
+                        );
+                      }),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Text(
+                      "고객센터",
+                      style: Theme.of(context).textTheme.headline3,
                     ),
-                    ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: orders.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 0),
-                            title: Text(
-                              orders[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(fontWeight: FontWeight.normal),
-                            ),
-                            onTap: () {},
-                          );
-                        }),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Text(
-                        "고객센터",
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: Colors.black,
-                    ),
-                    ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: servicesCenter.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 0),
-                            title: Text(
-                              servicesCenter[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(fontWeight: FontWeight.normal),
-                            ),
-                            onTap: () {},
-                          );
-                        }),
-                  ]),
+                  ),
+                  Container(
+                    height: 1,
+                    color: Colors.black,
+                  ),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: servicesCenter.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 0),
+                        title: Text(
+                          servicesCenter[index].title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(fontWeight: FontWeight.normal),
+                        ),
+                        onTap: () {
+                          GoRouter.of(context)
+                              .goNamed('/${servicesCenter[index].path}');
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

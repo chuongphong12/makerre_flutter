@@ -82,13 +82,11 @@ class AppRouter {
         },
       )
     ],
-    errorPageBuilder: (context, state) => MaterialPage(
+    errorBuilder: (context, state) => Scaffold(
       key: state.pageKey,
-      child: Scaffold(
-        body: Center(
-          child: Text(
-            state.error.toString(),
-          ),
+      body: Center(
+        child: Text(
+          state.error.toString(),
         ),
       ),
     ),
