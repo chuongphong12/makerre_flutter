@@ -21,36 +21,43 @@ class SearchResultScreen extends StatelessWidget {
           width: 120,
         ),
         centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 5),
+                  BackButton(
+                    onPressed: () {
+                      GoRouter.of(context).goNamed('home');
+                    },
+                  ),
+                  Expanded(
+                    child: ListTile(
+                      title: Text(result),
+                      trailing: Icon(
+                        Icons.search,
+                        size: 28,
+                        color: Theme.of(context).colorScheme.onError,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Divider(
+                thickness: 1,
+                height: 1,
+                color: Theme.of(context).primaryColor,
+              ),
+            ],
+          ),
+        ),
       ),
       drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    GoRouter.of(context).goNamed('home');
-                  },
-                  icon: const Icon(Icons.arrow_back_ios_new),
-                ),
-                Expanded(
-                  child: ListTile(
-                    title: Text(result),
-                    trailing: Icon(
-                      Icons.search,
-                      size: 28,
-                      color: Theme.of(context).colorScheme.onError,
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Divider(
-              thickness: 1,
-              height: 1,
-              color: Theme.of(context).primaryColor,
-            ),
             const SizedBox(height: 28),
             hasResult == true
                 ? Padding(
@@ -83,14 +90,11 @@ class SearchResultScreen extends StatelessWidget {
                                     vertical: 5,
                                   ),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '거리순',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
+                                        style: Theme.of(context).textTheme.bodyText1,
                                       ),
                                       const Icon(
                                         Icons.keyboard_arrow_down,
@@ -124,19 +128,15 @@ class SearchResultScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 10),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           val.title,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4,
+                                          style: Theme.of(context).textTheme.headline4,
                                         ),
                                         val.isBookmark
                                             ? const Icon(Icons.bookmark)
-                                            : const Icon(
-                                                Icons.bookmark_outline),
+                                            : const Icon(Icons.bookmark_outline),
                                       ],
                                     ),
                                     const SizedBox(height: 12),
@@ -144,19 +144,16 @@ class SearchResultScreen extends StatelessWidget {
                                       val.description,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
+                                      style: Theme.of(context).textTheme.headline6,
                                     ),
                                     const SizedBox(height: 10),
                                     Text(
                                       '${val.price.toStringAsFixed(0)} 원 ~',
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
+                                      style: Theme.of(context).textTheme.headline4,
                                     ),
                                     const SizedBox(height: 6),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           children: [
@@ -167,17 +164,13 @@ class SearchResultScreen extends StatelessWidget {
                                             ),
                                             Text(
                                               val.rating.toStringAsFixed(1),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
+                                              style: Theme.of(context).textTheme.bodyText1,
                                             ),
                                           ],
                                         ),
                                         Text(
                                           '${val.reviewCount.toStringAsFixed(0)} 리뷰',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
+                                          style: Theme.of(context).textTheme.bodyText1,
                                         ),
                                       ],
                                     ),
@@ -209,8 +202,7 @@ class SearchResultScreen extends StatelessWidget {
     return showModalBottomSheet(
       context: context,
       enableDrag: true,
-      constraints:
-          const BoxConstraints.tightFor(height: 174, width: double.infinity),
+      constraints: const BoxConstraints.tightFor(height: 174, width: double.infinity),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),

@@ -23,11 +23,11 @@ class SearchScreen extends StatelessWidget {
             constraints: const BoxConstraints.tightFor(height: 40),
             child: Row(
               children: [
-                IconButton(
+                const SizedBox(width: 5),
+                BackButton(
                   onPressed: () {
                     GoRouter.of(context).pop();
                   },
-                  icon: const Icon(Icons.arrow_back_ios_new),
                 ),
                 Expanded(
                   child: TextField(
@@ -44,8 +44,7 @@ class SearchScreen extends StatelessWidget {
                     ),
                     onSubmitted: (value) {
                       if (value != '') {
-                        GoRouter.of(context)
-                            .goNamed('search-result', params: {'name': value});
+                        GoRouter.of(context).goNamed('search-result', params: {'name': value});
                       }
                     },
                   ),

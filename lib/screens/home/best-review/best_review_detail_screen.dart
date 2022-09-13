@@ -17,10 +17,9 @@ class BestReviewDetailScreen extends StatelessWidget {
           width: 120,
         ),
         centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48),
+          child: AppBar(
             title: const Text('베스트 리뷰'),
             centerTitle: true,
             shape: const Border.symmetric(
@@ -30,6 +29,10 @@ class BestReviewDetailScreen extends StatelessWidget {
               ),
             ),
           ),
+        ),
+      ),
+      body: Column(
+        children: [
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -119,10 +122,7 @@ class BestReviewDetailScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(
                   review.description,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(height: 1.6),
+                  style: Theme.of(context).textTheme.headline6!.copyWith(height: 1.6),
                 ),
                 const SizedBox(height: 16),
                 Material(
