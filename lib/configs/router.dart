@@ -6,7 +6,6 @@ import 'package:makerre_flutter/screens/home/banner/banner_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_detail_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_screen.dart';
 import 'package:makerre_flutter/screens/home/home_screen.dart';
-import 'package:makerre_flutter/screens/home/search/search_result_screen.dart';
 import 'package:makerre_flutter/screens/home/search/search_screen.dart';
 
 class AppRouter {
@@ -47,23 +46,12 @@ class AppRouter {
             },
           ),
           GoRoute(
-              name: 'search',
-              path: 'search',
-              builder: (context, state) {
-                return const SearchScreen();
-              },
-              routes: <GoRoute>[
-                GoRoute(
-                  name: 'search-result',
-                  path: ':name',
-                  builder: (context, state) {
-                    final result = state.params['name'];
-                    return SearchResultScreen(
-                      result: result!,
-                    );
-                  },
-                )
-              ]),
+            name: 'search',
+            path: 'search',
+            builder: (context, state) {
+              return const SearchScreen();
+            },
+          ),
         ],
       ),
       GoRoute(
