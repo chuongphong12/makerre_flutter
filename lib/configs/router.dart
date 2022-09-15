@@ -6,8 +6,9 @@ import 'package:makerre_flutter/screens/home/banner/banner_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_detail_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_screen.dart';
 import 'package:makerre_flutter/screens/home/home_screen.dart';
-import 'package:makerre_flutter/screens/home/mypage/mypage_screen.dart';
 import 'package:makerre_flutter/screens/home/search/search_screen.dart';
+import 'package:makerre_flutter/screens/home/sub-category/sub_category_screen.dart';
+import 'package:makerre_flutter/screens/mypage/mypage_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
@@ -53,6 +54,16 @@ class AppRouter {
               return const SearchScreen();
             },
           ),
+          GoRoute(
+            name: 'sub-cate',
+            path: 'sub-category/:name',
+            builder: (context, state) {
+              final name = state.params['name'];
+              return SubCategoryScreen(
+                name: name!,
+              );
+            },
+          ),
         ],
       ),
       GoRoute(
@@ -70,6 +81,7 @@ class AppRouter {
         },
       )
     ],
+    initialLocation: '/login',
     errorBuilder: (context, state) => Scaffold(
       key: state.pageKey,
       body: Center(

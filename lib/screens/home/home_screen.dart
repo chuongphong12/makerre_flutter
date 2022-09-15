@@ -149,58 +149,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icons/scissors-line.svg',
-                            width: 52,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            '리폼',
-                            style: Theme.of(context).textTheme.headline5,
-                          )
-                        ],
+                      _buildService(
+                        context,
+                        'assets/images/icons/scissors-line.svg',
+                        '리폼',
                       ),
-                      Column(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icons/bag-line.svg',
-                            width: 52,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            '수선',
-                            style: Theme.of(context).textTheme.headline5,
-                          )
-                        ],
+                      _buildService(
+                        context,
+                        'assets/images/icons/bag-line.svg',
+                        '수선',
                       ),
-                      Column(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icons/paint-line.svg',
-                            width: 52,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            '염색',
-                            style: Theme.of(context).textTheme.headline5,
-                          )
-                        ],
+                      _buildService(
+                        context,
+                        'assets/images/icons/paint-line.svg',
+                        '염색',
                       ),
-                      Column(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icons/washing-machine-line.svg',
-                            width: 52,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            '클리닝',
-                            style: Theme.of(context).textTheme.headline5,
-                          )
-                        ],
-                      )
+                      _buildService(
+                        context,
+                        'assets/images/icons/washing-machine-line.svg',
+                        '클리닝',
+                      ),
                     ],
                   ),
                   const SizedBox(height: 64),
@@ -352,6 +320,27 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 52),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildService(BuildContext context, String icon, String title) {
+    return GestureDetector(
+      onTap: () {
+        GoRouter.of(context).goNamed('sub-cate', params: {'name': title});
+      },
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            icon,
+            width: 52,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headline5,
+          )
+        ],
       ),
     );
   }
