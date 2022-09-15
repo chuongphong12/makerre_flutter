@@ -87,9 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: _buildSearchResult(context, recommendList),
-      ),
+      body: _buildSearchResult(context, recommendList),
     );
   }
 
@@ -195,82 +193,85 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
             const SizedBox(height: 28),
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              crossAxisSpacing: 15,
-              childAspectRatio: 80 / 135,
-              mainAxisSpacing: 20,
-              physics: const NeverScrollableScrollPhysics(),
-              children: SearchResult.searchResults
-                  .map(
-                    (val) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          val.image,
-                          width: double.maxFinite,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              val.title,
-                              style: Theme.of(context).textTheme.headline4,
-                            ),
-                            val.isBookmark
-                                ? const Icon(Icons.bookmark)
-                                : const Icon(Icons.bookmark_outline),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          val.description,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          '${val.price.toStringAsFixed(0)} 원 ~',
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                        const SizedBox(height: 6),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.star_rate_rounded,
-                                  size: 17,
-                                  color: Colors.amber,
-                                ),
-                                Text(
-                                  val.rating.toStringAsFixed(1),
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              ],
-                            ),
-                            Text(
-                              '${val.reviewCount.toStringAsFixed(0)} 리뷰',
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                  .toList(),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                crossAxisSpacing: 15,
+                childAspectRatio: 80 / 135,
+                mainAxisSpacing: 20,
+                children: SearchResult.searchResults
+                    .map(
+                      (val) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            val.image,
+                            width: double.maxFinite,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                val.title,
+                                style: Theme.of(context).textTheme.headline4,
+                              ),
+                              val.isBookmark
+                                  ? const Icon(Icons.bookmark)
+                                  : const Icon(Icons.bookmark_outline),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            val.description,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            '${val.price.toStringAsFixed(0)} 원 ~',
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          const SizedBox(height: 6),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star_rate_rounded,
+                                    size: 17,
+                                    color: Colors.amber,
+                                  ),
+                                  Text(
+                                    val.rating.toStringAsFixed(1),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                '${val.reviewCount.toStringAsFixed(0)} 리뷰',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
             const SizedBox(height: 20),
           ],
         ),
       );
     } else if (initTextState == false && hasResult == false) {
-      return Center(
+      return Align(
+        alignment: Alignment.topCenter,
         child: Text(
           '\'$searchValue\' 에 해당하는 결과값이 없습니다.',
           style: Theme.of(context).textTheme.headline4!.copyWith(
@@ -280,7 +281,8 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       );
     } else {
-      return Center(
+      return Align(
+        alignment: Alignment.topCenter,
         child: Text(
           '\'$searchValue\' 에 해당하는 결과값이 없습니다.',
           style: Theme.of(context).textTheme.headline4!.copyWith(
