@@ -7,6 +7,7 @@ import 'package:makerre_flutter/screens/home/best-review/best_review_detail_scre
 import 'package:makerre_flutter/screens/home/best-review/best_review_screen.dart';
 import 'package:makerre_flutter/screens/home/home_screen.dart';
 import 'package:makerre_flutter/screens/home/mypage/mypage_screen.dart';
+import 'package:makerre_flutter/screens/home/search/search_result_screen.dart';
 import 'package:makerre_flutter/screens/home/search/search_screen.dart';
 
 class AppRouter {
