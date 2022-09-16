@@ -38,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ? ColorConfig.blackColor
                   : ColorConfig.whiteColor,
               surfaceTintColor: ColorConfig.whiteColor,
-              elevation: 3,
+              elevation: 5,
               shadowColor: ColorConfig.grayBDColor,
               child: Row(children: [
                 Padding(
@@ -253,45 +253,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
-                    RichText(
-                        textAlign: TextAlign.left,
-                        text: TextSpan(
-                            text: "이용약관 ",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(color: ColorConfig.primaryColor),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print("tap here");
-                              },
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: "및 ",
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                              text: "이용약관 ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(color: ColorConfig.primaryColor),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  print("tap here");
+                                },
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: "및 ",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                            color: ColorConfig.dark75Color)),
+                                TextSpan(
+                                  text: "개인정보처리방침에 ",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                          color: ColorConfig.dark75Color)),
-                              TextSpan(
-                                text: "개인정보처리방침에 ",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(color: ColorConfig.primaryColor),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    print("tap here 1");
-                                  },
-                              ),
-                              TextSpan(
-                                  text: "동의합니다.(필수)",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          color: ColorConfig.dark75Color)),
-                            ]))
+                                          color: ColorConfig.primaryColor),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      print("tap here 1");
+                                    },
+                                ),
+                                TextSpan(
+                                    text: "동의합니다.(필수)",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                            color: ColorConfig.dark75Color)),
+                              ])),
+                    )
                   ],
                 ),
                 const SizedBox(
@@ -315,27 +319,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
-                    RichText(
-                        textAlign: TextAlign.left,
-                        text: TextSpan(
-                            text: "마케팅 수신 및 활용 약관",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(color: ColorConfig.primaryColor),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print("tap here");
-                              },
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: "에 동의합니다.(선택) ",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          color: ColorConfig.dark75Color)),
-                            ]))
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                              text: "마케팅 수신 및 활용 약관",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(color: ColorConfig.primaryColor),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  print("tap here");
+                                },
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: "에 동의합니다.(선택) ",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                            color: ColorConfig.dark75Color)),
+                              ])),
+                    )
                   ],
                 ),
               ],
@@ -352,6 +359,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 surfaceTintColor: ColorConfig.whiteColor,
                 shadowColor: ColorConfig.grayE0Color,
                 child: TextButton(
+                  style: ButtonStyle(
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent)),
                   child: Text(
                     '회원가입',
                     style: Theme.of(context)
