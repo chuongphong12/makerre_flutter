@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makerre_flutter/models/search_result_model.dart';
@@ -26,6 +27,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
   ];
 
   String activeMenu = '가방';
+  int activeIndex = 0;
 
   @override
   void initState() {
@@ -75,6 +77,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
               labelPadding: const EdgeInsets.symmetric(horizontal: 23),
               indicatorWeight: 3,
               indicatorPadding: const EdgeInsets.symmetric(horizontal: 5),
+              labelColor: Theme.of(context).colorScheme.primary,
+              unselectedLabelColor: Colors.black,
               tabs: menuItems.map(
                 (val) {
                   return Tab(
@@ -94,6 +98,49 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
+                        Stack(
+                          children: [
+                            CarouselSlider.builder(
+                              itemCount: 10,
+                              itemBuilder: (context, index, realIndex) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  clipBehavior: Clip.hardEdge,
+                                  child: Image.asset(
+                                      'assets/images/sub-banner.png',
+                                      fit: BoxFit.cover),
+                                );
+                              },
+                              options: CarouselOptions(
+                                height: 140,
+                                viewportFraction: 1,
+                                initialPage: activeIndex,
+                                onPageChanged: (int index,
+                                    CarouselPageChangedReason reason) {
+                                  setState(() {
+                                    activeIndex = index;
+                                  });
+                                },
+                              ),
+                            ),
+                            Positioned(
+                              top: 10,
+                              right: 10,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 3,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: const Color(0xFF727272),
+                                ),
+                                child: Text('${activeIndex + 1}/10'),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
