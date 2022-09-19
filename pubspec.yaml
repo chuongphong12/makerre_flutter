@@ -40,7 +40,7 @@ dependencies:
   bloc: ^8.1.0
   flutter_native_splash: ^2.2.9
   flutter_launcher_icons: ^0.10.0
-  flutter_svg: ^1.1.4
+  flutter_svg: ^1.1.5
   flutter_form_builder: ^7.6.0
   carousel_slider: ^4.1.1
   equatable: ^2.0.5
