@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/models/review_model.dart';
-import 'package:makerre_flutter/screens/auth/login_screen.dart';
+import 'package:makerre_flutter/screens/auth/login/login_screen.dart';
+import 'package:makerre_flutter/screens/auth/signup/signup_screen.dart';
 import 'package:makerre_flutter/screens/home/banner/banner_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_detail_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_screen.dart';
 import 'package:makerre_flutter/screens/home/home_screen.dart';
 import 'package:makerre_flutter/screens/home/mypage/mypage_screen.dart';
+import 'package:makerre_flutter/screens/home/search/search_result_screen.dart';
 import 'package:makerre_flutter/screens/home/search/search_screen.dart';
 
 class AppRouter {
@@ -53,15 +55,24 @@ class AppRouter {
               return const SearchScreen();
             },
           ),
+          
         ],
       ),
       GoRoute(
-        name: 'login',
-        path: '/login',
-        builder: (context, state) {
-          return const LoginScreen();
-        },
-      ),
+          name: 'login',
+          path: '/login',
+          builder: (context, state) {
+            return const LoginScreen();
+          },
+          routes: <GoRoute>[
+            GoRoute(
+              name: 'signup',
+              path: 'signup',
+              builder: (context, state) {
+                return const SignUpScreen();
+              },
+            ),
+          ]),
       GoRoute(
         name: 'mypage',
         path: '/mypage',
@@ -70,6 +81,7 @@ class AppRouter {
         },
       )
     ],
+    initialLocation: "/login",
     errorBuilder: (context, state) => Scaffold(
       key: state.pageKey,
       body: Center(
