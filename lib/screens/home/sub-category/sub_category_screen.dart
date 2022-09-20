@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:makerre_flutter/configs/color.dart';
 import 'package:makerre_flutter/models/search_result_model.dart';
 
 class SubCategoryScreen extends StatefulWidget {
@@ -67,26 +69,40 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
       ),
       body: Column(
         children: [
-          SizedBox(
-            height: 48,
-            child: TabBar(
-              isScrollable: true,
-              controller: _tabController,
-              indicatorColor: Theme.of(context).colorScheme.primary,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              labelPadding: const EdgeInsets.symmetric(horizontal: 23),
-              indicatorWeight: 3,
-              indicatorPadding: const EdgeInsets.symmetric(horizontal: 5),
-              labelColor: Theme.of(context).colorScheme.primary,
-              unselectedLabelColor: Colors.black,
-              tabs: menuItems.map(
-                (val) {
-                  return Tab(
-                    child: Text(val),
-                  );
-                },
-              ).toList(),
-            ),
+          Stack(
+            fit: StackFit.passthrough,
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom:
+                        BorderSide(color: ColorConfig.grayBDColor, width: 1),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 48,
+                child: TabBar(
+                  isScrollable: true,
+                  controller: _tabController,
+                  indicatorColor: Theme.of(context).colorScheme.primary,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 23),
+                  indicatorWeight: 3,
+                  indicatorPadding: const EdgeInsets.symmetric(horizontal: 5),
+                  labelColor: Theme.of(context).colorScheme.primary,
+                  unselectedLabelColor: Colors.black,
+                  tabs: menuItems.map(
+                    (val) {
+                      return Tab(
+                        child: Text(val),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 28),
           Expanded(
@@ -107,14 +123,16 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                                   borderRadius: BorderRadius.circular(10),
                                   clipBehavior: Clip.hardEdge,
                                   child: Image.asset(
-                                      'assets/images/sub-banner.png',
-                                      fit: BoxFit.cover),
+                                    'assets/images/sub-banner.png',
+                                    fit: BoxFit.cover,
+                                  ),
                                 );
                               },
                               options: CarouselOptions(
                                 height: 140,
                                 viewportFraction: 1,
                                 initialPage: activeIndex,
+                                enlargeCenterPage: true,
                                 onPageChanged: (int index,
                                     CarouselPageChangedReason reason) {
                                   setState(() {
@@ -135,7 +153,15 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                                   borderRadius: BorderRadius.circular(30),
                                   color: const Color(0xFF727272),
                                 ),
-                                child: Text('${activeIndex + 1}/10'),
+                                child: Text(
+                                  '${activeIndex + 1}/10',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(
+                                        color: const Color(0xFFFFFFFF),
+                                      ),
+                                ),
                               ),
                             )
                           ],
@@ -198,74 +224,87 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                           physics: const NeverScrollableScrollPhysics(),
                           children: SearchResult.searchResults
                               .map(
-                                (val) => Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.asset(
-                                      val.image,
-                                      width: double.maxFinite,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          val.title,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4,
-                                        ),
-                                        val.isBookmark
-                                            ? const Icon(Icons.bookmark)
-                                            : const Icon(
-                                                Icons.bookmark_outline),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      val.description,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      '${val.price.toStringAsFixed(0)} 원 ~',
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.star_rate_rounded,
-                                              size: 17,
-                                              color: Colors.amber,
-                                            ),
-                                            Text(
-                                              val.rating.toStringAsFixed(1),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          '${val.reviewCount.toStringAsFixed(0)} 리뷰',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                (val) => InkWell(
+                                  borderRadius: BorderRadius.circular(5),
+                                  onTap: () {
+                                    context.goNamed(
+                                      'sub-cate-master',
+                                      params: {'name': widget.name},
+                                      extra: val,
+                                    );
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        val.image,
+                                        width: double.maxFinite,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            val.title,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline4,
+                                          ),
+                                          val.isBookmark
+                                              ? const Icon(Icons.bookmark)
+                                              : const Icon(
+                                                  Icons.bookmark_outline),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        val.description,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        '${val.price.toStringAsFixed(0)} 원 ~',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4,
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.star_rate_rounded,
+                                                size: 17,
+                                                color: Colors.amber,
+                                              ),
+                                              Text(
+                                                val.rating.toStringAsFixed(1),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1,
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            '${val.reviewCount.toStringAsFixed(0)} 리뷰',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               )
                               .toList(),

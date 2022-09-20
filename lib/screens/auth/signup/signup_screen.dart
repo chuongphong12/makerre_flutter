@@ -301,12 +301,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontWeight: FontWeight.normal),
                     filled: false,
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: ColorConfig.grayBDColor)),
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide:
+                          const BorderSide(color: ColorConfig.grayBDColor),
+                    ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(
-                            color: ColorConfig.grayBDColor, width: 1)),
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: const BorderSide(
+                          color: ColorConfig.grayBDColor, width: 1),
+                    ),
                     errorStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontWeight: FontWeight.normal,
                         color: ColorConfig.primaryColor),
@@ -348,13 +351,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontWeight: FontWeight.normal),
                     filled: false,
                     border: OutlineInputBorder(
-                        gapPadding: 2,
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: ColorConfig.grayBDColor)),
+                      gapPadding: 2,
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide:
+                          const BorderSide(color: ColorConfig.grayBDColor),
+                    ),
                     focusedBorder: OutlineInputBorder(
-                        gapPadding: 2,
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: ColorConfig.grayBDColor)),
+                      gapPadding: 2,
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide:
+                          const BorderSide(color: ColorConfig.grayBDColor),
+                    ),
                   ),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(),
@@ -365,14 +372,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onSubmitted: (_) {
                     _validateForm();
                   },
-                  // (value) {
-                  //   if (!RegExp(
-                  //           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                  //       .hasMatch(value ?? "")) {
-                  //     return "영문 대소문자+숫자+특수기호 조합 8자리 이상 ";
-                  //   }
-                  //   return null;
-                  // },
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 28, bottom: 16),
@@ -401,11 +400,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     border: OutlineInputBorder(
                         gapPadding: 2,
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: ColorConfig.grayBDColor)),
+                        borderSide:
+                            const BorderSide(color: ColorConfig.grayBDColor),),
                     focusedBorder: OutlineInputBorder(
                         gapPadding: 2,
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: ColorConfig.grayBDColor)),
+                        borderSide:
+                            const BorderSide(color: ColorConfig.grayBDColor),),
                   ),
                   validator: (value) {
                     if (_formKey.currentState?.fields['password']?.value !=
@@ -460,7 +461,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         .textTheme
                                         .bodyText1!
                                         .copyWith(
-                                            color: ColorConfig.dark75Color)),
+                                            color: ColorConfig.dark75Color),),
                                 TextSpan(
                                   text: "개인정보처리방침에 ",
                                   style: Theme.of(context)
@@ -479,8 +480,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         .textTheme
                                         .bodyText1!
                                         .copyWith(
-                                            color: ColorConfig.dark75Color)),
-                              ])),
+                                            color: ColorConfig.dark75Color),),
+                              ],),),
                     )
                   ],
                 ),
@@ -526,8 +527,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         .textTheme
                                         .bodyText1!
                                         .copyWith(
-                                            color: ColorConfig.dark75Color)),
-                              ])),
+                                            color: ColorConfig.dark75Color),),
+                              ],),),
                     )
                   ],
                 ),
@@ -543,7 +544,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextButton.styleFrom(
                   foregroundColor: ColorConfig.whiteColor,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
+                      borderRadius: BorderRadius.circular(5),),
                   elevation: 5,
                   backgroundColor: _formKey.currentState?.isValid ?? false
                       ? ColorConfig.blackColor

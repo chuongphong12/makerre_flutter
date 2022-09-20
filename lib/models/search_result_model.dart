@@ -1,4 +1,5 @@
 class SearchResult {
+  final int id;
   final String image;
   final String title;
   final String description;
@@ -8,6 +9,7 @@ class SearchResult {
   final bool isBookmark;
 
   SearchResult({
+    required this.id,
     required this.image,
     required this.title,
     required this.description,
@@ -19,6 +21,7 @@ class SearchResult {
 
   static final List<SearchResult> searchResults = [
     SearchResult(
+      id: 1001,
       image: 'assets/images/search_result/celine-bag.png',
       title: '픽스 마스터',
       isBookmark: true,
@@ -29,6 +32,7 @@ class SearchResult {
       reviewCount: 108,
     ),
     SearchResult(
+      id: 1002,
       image: 'assets/images/search_result/t-shirt.png',
       title: '세탁 특공',
       isBookmark: true,
@@ -38,6 +42,7 @@ class SearchResult {
       reviewCount: 80,
     ),
     SearchResult(
+      id: 1003,
       image: 'assets/images/search_result/blanket.png',
       title: '수리수리 마수리',
       isBookmark: false,
@@ -47,6 +52,7 @@ class SearchResult {
       reviewCount: 222,
     ),
     SearchResult(
+      id: 1004,
       image: 'assets/images/search_result/coffee.png',
       title: '리폼의 신',
       isBookmark: false,
@@ -56,6 +62,7 @@ class SearchResult {
       reviewCount: 65,
     ),
     SearchResult(
+      id: 1005,
       image: 'assets/images/search_result/noddle.png',
       title: '수리수리 마수리',
       isBookmark: false,
@@ -66,6 +73,7 @@ class SearchResult {
       reviewCount: 9,
     ),
     SearchResult(
+      id: 1006,
       image: 'assets/images/search_result/old-guy.png',
       title: '수선 매니아',
       isBookmark: false,

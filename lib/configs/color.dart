@@ -15,4 +15,5 @@ class ColorConfig {
   static const Color gray98Color = Color(0xFFF9FAFA);
 
   static const Color primaryColor = Color(0xFFFF4200);
+  static const Color primaryColorLight = Color(0xFFFFEEE9);
 }

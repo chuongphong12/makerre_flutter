@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/models/review_model.dart';
+import 'package:makerre_flutter/models/search_result_model.dart';
 import 'package:makerre_flutter/screens/auth/login/login_screen.dart';
 import 'package:makerre_flutter/screens/auth/signup/signup_screen.dart';
 import 'package:makerre_flutter/screens/home/banner/banner_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_detail_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_screen.dart';
 import 'package:makerre_flutter/screens/home/home_screen.dart';
+import 'package:makerre_flutter/screens/home/review/review_screen.dart';
 import 'package:makerre_flutter/screens/home/search/search_screen.dart';
+import 'package:makerre_flutter/screens/home/sub-category/sub_category_master_screen.dart';
 import 'package:makerre_flutter/screens/home/sub-category/sub_category_screen.dart';
 import 'package:makerre_flutter/screens/mypage/mypage_screen.dart';
 
@@ -64,6 +67,23 @@ class AppRouter {
                 name: name!,
               );
             },
+            routes: <GoRoute>[
+              GoRoute(
+                  name: 'sub-cate-master',
+                  path: 'sub-category-master',
+                  builder: (context, state) {
+                    return SubCategoryMasterScreen(
+                      masterItem: state.extra as SearchResult,
+                    );
+                  },
+                  routes: <GoRoute>[
+                    GoRoute(
+                      path: 'review',
+                      name: 'review',
+                      builder: (context, state) => const ReviewScreen(),
+                    )
+                  ]),
+            ],
           ),
         ],
       ),

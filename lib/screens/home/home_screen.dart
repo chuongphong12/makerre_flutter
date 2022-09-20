@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   items: carouselItem.map((val) {
                     return GestureDetector(
                       onTap: () {
-                        GoRouter.of(context).go('/signup');
+                        GoRouter.of(context).goNamed('signup');
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }).toList(),
                 ),
                 Positioned(
-                  bottom: 16,
+                  top: 95,
                   child: AnimatedSmoothIndicator(
                     activeIndex: activeIndex,
                     count: carouselItem.length,
