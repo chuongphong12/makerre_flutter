@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:makerre_flutter/configs/color.dart';
 import 'package:makerre_flutter/widgets/app_drawer.dart';
 
 class ServicesCenter {
@@ -108,7 +109,13 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     height: 1,
                     color: Colors.black,
                   ),
-                  ListView.builder(
+                  ListView.separated(
+                      separatorBuilder: (context, index) {
+                        return const Divider(
+                          thickness: 1,
+                          color: ColorConfig.grayE0Color,
+                        );
+                      },
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: orders.length,
                       shrinkWrap: true,
@@ -137,7 +144,13 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     height: 1,
                     color: Colors.black,
                   ),
-                  ListView.builder(
+                  ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return const Divider(
+                        thickness: 1,
+                        color: ColorConfig.grayE0Color,
+                      );
+                    },
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: servicesCenter.length,
                     shrinkWrap: true,
