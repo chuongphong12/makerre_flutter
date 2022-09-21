@@ -49,17 +49,18 @@ class BestReviewScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   borderRadius: BorderRadius.circular(4),
-                  splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                  splashColor:
+                      Theme.of(context).colorScheme.primary.withOpacity(0.2),
                   onTap: () {
-                    GoRouter.of(context)
-                        .goNamed('review-detail', params: {'id': reviewList[index].id.toString()});
+                    GoRouter.of(context).goNamed('review-detail',
+                        params: {'id': reviewList[index].id.toString()});
                   },
                   child: Card(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Image.asset(
-                          reviewList[index].image,
+                          reviewList[index].image[0],
                           width: double.maxFinite,
                           fit: BoxFit.cover,
                         ),
@@ -72,12 +73,16 @@ class BestReviewScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     reviewList[index].title,
-                                    style: Theme.of(context).textTheme.headline5,
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
                                     reviewList[index].subtitle,
-                                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: const Color(0xFFBDBDBD),
                                         ),

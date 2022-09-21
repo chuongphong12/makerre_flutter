@@ -69,20 +69,31 @@ class AppRouter {
             },
             routes: <GoRoute>[
               GoRoute(
-                  name: 'sub-cate-master',
-                  path: 'sub-category-master',
-                  builder: (context, state) {
-                    return SubCategoryMasterScreen(
-                      masterItem: state.extra as SearchResult,
-                    );
-                  },
-                  routes: <GoRoute>[
-                    GoRoute(
-                      path: 'review',
-                      name: 'review',
-                      builder: (context, state) => const ReviewScreen(),
-                    )
-                  ]),
+                name: 'sub-cate-master',
+                path: ':id',
+                builder: (context, state) {
+                  final id = state.params['id'];
+                  final name = state.params['name'];
+                  return SubCategoryMasterScreen(
+                    masterId: id!,
+                    name: name!,
+                  );
+                },
+                routes: <GoRoute>[
+                  GoRoute(
+                    path: 'review/:reviewId',
+                    name: 'review',
+                    builder: (context, state) {
+                      final id = state.params['id'];
+                      final name = state.params['name'];
+                      final reviewId = state.params['reviewId'];
+                      return ReviewScreen(
+                        reviewId: reviewId!,
+                      );
+                    },
+                  )
+                ],
+              ),
             ],
           ),
         ],
@@ -110,7 +121,8 @@ class AppRouter {
         },
       )
     ],
-    initialLocation: '/login',
+    initialLocation: '/',
+    debugLogDiagnostics: true,
     errorBuilder: (context, state) => Scaffold(
       key: state.pageKey,
       body: Center(
@@ -125,3 +137,5 @@ class AppRouter {
 ReviewModel _reviewFrom(String? id) {
   return ReviewModel.reviewList.where((val) => val.id.toString() == id).first;
 }
+
+

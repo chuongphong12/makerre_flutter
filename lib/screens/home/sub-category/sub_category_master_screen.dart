@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -8,9 +10,13 @@ import 'package:makerre_flutter/models/search_result_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SubCategoryMasterScreen extends StatefulWidget {
-  final SearchResult masterItem;
-  const SubCategoryMasterScreen({Key? key, required this.masterItem})
-      : super(key: key);
+  final String masterId;
+  final String name;
+  const SubCategoryMasterScreen({
+    Key? key,
+    required this.masterId,
+    required this.name,
+  }) : super(key: key);
 
   @override
   State<SubCategoryMasterScreen> createState() =>
@@ -19,14 +25,28 @@ class SubCategoryMasterScreen extends StatefulWidget {
 
 class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
   int activeIndex = 0;
+  late SearchResult masterItem;
+
+  @override
+  void initState() {
+    masterItem = SearchResult.searchResults
+        .where((val) => val.id.toString() == widget.masterId)
+        .first;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    SearchResult item = widget.masterItem;
+    SearchResult item = masterItem;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: SvgPicture.asset('assets/images/icons/Logo.svg'),
+        title: SvgPicture.asset(
+          'assets/images/icons/Logo.svg',
+          width: 120,
+        ),
+        centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
           child: AppBar(
@@ -133,7 +153,15 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          context.goNamed('review');
+                          var id = Random().nextInt(100);
+                          GoRouter.of(context).goNamed(
+                            'review',
+                            params: {
+                              'reviewId': id.toString(),
+                              'name': widget.name,
+                              'id': widget.masterId
+                            },
+                          );
                         },
                         child: Container(
                           decoration: const BoxDecoration(

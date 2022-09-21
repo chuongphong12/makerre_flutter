@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }).toList(),
                 ),
                 Positioned(
-                  top: 95,
+                  bottom: 15,
                   child: AnimatedSmoothIndicator(
                     activeIndex: activeIndex,
                     count: carouselItem.length,
@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.asset(productList[index].image),
+                          Image.asset(productList[index].image[0]),
                           Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Column(

@@ -48,6 +48,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        scrolledUnderElevation: 3,
         title: SvgPicture.asset(
           'assets/images/icons/Logo.svg',
           width: 120,
@@ -129,7 +130,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                                 );
                               },
                               options: CarouselOptions(
-                                height: 140,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
                                 viewportFraction: 1,
                                 initialPage: activeIndex,
                                 enlargeCenterPage: true,
@@ -229,8 +231,10 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                                   onTap: () {
                                     context.goNamed(
                                       'sub-cate-master',
-                                      params: {'name': widget.name},
-                                      extra: val,
+                                      params: {
+                                        'name': widget.name,
+                                        'id': val.id.toString(),
+                                      },
                                     );
                                   },
                                   child: Column(

@@ -122,14 +122,17 @@ class BestReviewDetailScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(
                   review.description,
-                  style: Theme.of(context).textTheme.headline6!.copyWith(height: 1.6),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(height: 1.6),
                 ),
                 const SizedBox(height: 16),
                 Material(
                   borderRadius: BorderRadius.circular(4),
                   clipBehavior: Clip.hardEdge,
                   child: Image.asset(
-                    review.image,
+                    review.image[0],
                     width: double.maxFinite,
                     fit: BoxFit.cover,
                   ),
