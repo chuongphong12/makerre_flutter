@@ -16,7 +16,7 @@ class _SignUpInforScreenState extends State<SignUpInforScreen> {
   double progressBarValue = 0.5;
   String titleProgress = '휴대폰 인증을 해주세요';
 
-  void changeProgessValue(bool nextStep) {
+  void changeProgressValue(bool nextStep) {
     if (nextStep == true) {
       setState(() {
         if (progressBarValue == 0.5) {
@@ -54,44 +54,42 @@ class _SignUpInforScreenState extends State<SignUpInforScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              LinearProgressIndicator(
-                value: progressBarValue,
-                backgroundColor: ColorConfig.grayE0Color,
-              ),
-              const SizedBox(
-                height: 52,
-              ),
-              Text(
-                titleProgress,
-                style: Theme.of(context).textTheme.headline3,
-                textAlign: TextAlign.center,
-              ),
-              // const SizedBox(height: 24),
-              if (progressBarValue == 0.5) ...[
-                SizedBox(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height,
-                  child: VerifyOTPScreen(
-                    nextStep: (bool nextStep) {
-                      changeProgessValue(nextStep);
-                    },
-                  ),
-                ),
-              ] else ...[
-                SignUpInputInforScreen(
-                  changeStepCallBack: (bool nextStep) {
-                    changeProgessValue(nextStep);
+      body: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            LinearProgressIndicator(
+              value: progressBarValue,
+              backgroundColor: ColorConfig.grayE0Color,
+            ),
+            const SizedBox(
+              height: 45,
+            ),
+            Text(
+              titleProgress,
+              style: Theme.of(context).textTheme.headline3,
+              textAlign: TextAlign.center,
+            ),
+            // const SizedBox(height: 24),
+            if (progressBarValue == 0.5) ...[
+              Expanded(
+                child: VerifyOTPScreen(
+                  nextStep: (bool nextStep) {
+                    changeProgressValue(nextStep);
                   },
                 ),
-              ],
+              ),
+            ] else ...[
+              Expanded(
+                child: SignUpInputInforScreen(
+                  changeStepCallBack: (bool nextStep) {
+                    changeProgressValue(nextStep);
+                  },
+                ),
+              ),
             ],
-          ),
+          ],
         ),
       ),
     );

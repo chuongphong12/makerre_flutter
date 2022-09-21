@@ -50,30 +50,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
             },
             child: Card(
               margin: EdgeInsets.zero,
-              color: isSelectCustomer
-                  ? ColorConfig.blackColor
-                  : ColorConfig.whiteColor,
+              color: isSelectCustomer ? ColorConfig.blackColor : ColorConfig.whiteColor,
               surfaceTintColor: ColorConfig.whiteColor,
               elevation: 3,
               shadowColor: ColorConfig.grayBDColor,
-              child: Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 8),
-                  child: Icon(
-                    Icons.check_circle,
-                    color: isSelectCustomer
-                        ? ColorConfig.whiteColor
-                        : ColorConfig.blackColor,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 8),
+                    child: Icon(
+                      Icons.check_circle,
+                      color: isSelectCustomer ? ColorConfig.whiteColor : ColorConfig.blackColor,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: ListTile(
+                  Expanded(
+                    child: ListTile(
                       title: Text(
                         "고객으로 가입",
                         style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: isSelectCustomer
-                                ? ColorConfig.whiteColor
-                                : ColorConfig.blackColor),
+                              color: isSelectCustomer
+                                  ? ColorConfig.whiteColor
+                                  : ColorConfig.blackColor,
+                            ),
                       ),
                       subtitle: Text(
                         "장인의 도움을 받고 싶어요.",
@@ -82,9 +80,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ? ColorConfig.grayBDColor
                                   : ColorConfig.dark75Color,
                             ),
-                      )),
-                ),
-              ]),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
@@ -100,18 +100,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               margin: EdgeInsets.zero,
               elevation: 3,
               surfaceTintColor: ColorConfig.whiteColor,
-              color: isSelectCustomer
-                  ? ColorConfig.whiteColor
-                  : ColorConfig.blackColor,
+              color: isSelectCustomer ? ColorConfig.whiteColor : ColorConfig.blackColor,
               shadowColor: ColorConfig.grayBDColor,
               child: Row(children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 8),
                   child: Icon(
                     Icons.check_circle,
-                    color: isSelectCustomer
-                        ? ColorConfig.blackColor
-                        : ColorConfig.whiteColor,
+                    color: isSelectCustomer ? ColorConfig.blackColor : ColorConfig.whiteColor,
                   ),
                 ),
                 Expanded(
@@ -119,9 +115,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       title: Text(
                         "고객으로 가입",
                         style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: isSelectCustomer
-                                ? ColorConfig.blackColor
-                                : ColorConfig.whiteColor),
+                            color:
+                                isSelectCustomer ? ColorConfig.blackColor : ColorConfig.whiteColor),
                       ),
                       subtitle: Text(
                         "장인의 도움을 받고 싶어요.",
@@ -150,12 +145,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textAlign: TextAlign.left,
                       text: TextSpan(
                           text: '보증에 의한 약관 동의 ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(
-                                  fontWeight: FontWeight.normal,
-                                  color: ColorConfig.primaryColor),
+                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                              fontWeight: FontWeight.normal, color: ColorConfig.primaryColor),
                           children: <TextSpan>[
                             TextSpan(
                                 text: '(5배 자부담)',
@@ -181,9 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         child: Icon(
                           Icons.check_circle_rounded,
-                          color: isTermPolicy
-                              ? ColorConfig.primaryColor
-                              : ColorConfig.grayBDColor,
+                          color: isTermPolicy ? ColorConfig.primaryColor : ColorConfig.grayBDColor,
                         ),
                       ),
                     ],
@@ -197,8 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Text(
                         '이용약관 (필수)',
                         style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: ColorConfig.dark75Color,
-                            fontWeight: FontWeight.normal),
+                            color: ColorConfig.dark75Color, fontWeight: FontWeight.normal),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -208,9 +196,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         child: Icon(
                           Icons.check_circle_rounded,
-                          color: isTermPolicy
-                              ? ColorConfig.primaryColor
-                              : ColorConfig.grayBDColor,
+                          color: isTermPolicy ? ColorConfig.primaryColor : ColorConfig.grayBDColor,
                         ),
                       ),
                     ],
@@ -224,8 +210,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Text(
                         '이용약관 (필수)',
                         style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: ColorConfig.dark75Color,
-                            fontWeight: FontWeight.normal),
+                            color: ColorConfig.dark75Color, fontWeight: FontWeight.normal),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -235,9 +220,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         child: Icon(
                           Icons.check_circle_rounded,
-                          color: isTermPolicy
-                              ? ColorConfig.primaryColor
-                              : ColorConfig.grayBDColor,
+                          color: isTermPolicy ? ColorConfig.primaryColor : ColorConfig.grayBDColor,
                         ),
                       ),
                     ],
@@ -251,8 +234,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Text(
                         '이용약관 (필수)',
                         style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: ColorConfig.dark75Color,
-                            fontWeight: FontWeight.normal),
+                            color: ColorConfig.dark75Color, fontWeight: FontWeight.normal),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -262,9 +244,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         child: Icon(
                           Icons.check_circle_rounded,
-                          color: isTermPolicy
-                              ? ColorConfig.primaryColor
-                              : ColorConfig.grayBDColor,
+                          color: isTermPolicy ? ColorConfig.primaryColor : ColorConfig.grayBDColor,
                         ),
                       ),
                     ],
@@ -294,26 +274,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     isCollapsed: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                     hintText: '이메일 입력',
-                    hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                        color: ColorConfig.grayBDColor,
-                        fontWeight: FontWeight.normal),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: ColorConfig.grayBDColor, fontWeight: FontWeight.normal),
                     filled: false,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
-                      borderSide:
-                          const BorderSide(color: ColorConfig.grayBDColor),
+                      borderSide: const BorderSide(color: ColorConfig.grayBDColor),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
-                      borderSide: const BorderSide(
-                          color: ColorConfig.grayBDColor, width: 1),
+                      borderSide: const BorderSide(color: ColorConfig.grayBDColor, width: 1),
                     ),
-                    errorStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontWeight: FontWeight.normal,
-                        color: ColorConfig.primaryColor),
+                    errorStyle: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontWeight: FontWeight.normal, color: ColorConfig.primaryColor),
                   ),
                   validator: (value) {
                     if (!RegExp(
@@ -344,24 +323,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   obscureText: true,
                   decoration: InputDecoration(
                     isCollapsed: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                     hintText: '비밀번호 입력',
-                    hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                        color: ColorConfig.grayBDColor,
-                        fontWeight: FontWeight.normal),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: ColorConfig.grayBDColor, fontWeight: FontWeight.normal),
                     filled: false,
                     border: OutlineInputBorder(
                       gapPadding: 2,
                       borderRadius: BorderRadius.circular(5),
-                      borderSide:
-                          const BorderSide(color: ColorConfig.grayBDColor),
+                      borderSide: const BorderSide(color: ColorConfig.grayBDColor),
                     ),
                     focusedBorder: OutlineInputBorder(
                       gapPadding: 2,
                       borderRadius: BorderRadius.circular(5),
-                      borderSide:
-                          const BorderSide(color: ColorConfig.grayBDColor),
+                      borderSide: const BorderSide(color: ColorConfig.grayBDColor),
                     ),
                   ),
                   validator: FormBuilderValidators.compose([
@@ -391,27 +368,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     isCollapsed: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                     hintText: '비밀번호 재입력',
-                    hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                        color: ColorConfig.grayBDColor,
-                        fontWeight: FontWeight.normal),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: ColorConfig.grayBDColor, fontWeight: FontWeight.normal),
                     filled: false,
                     border: OutlineInputBorder(
-                        gapPadding: 2,
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide:
-                            const BorderSide(color: ColorConfig.grayBDColor),),
+                      gapPadding: 2,
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: const BorderSide(color: ColorConfig.grayBDColor),
+                    ),
                     focusedBorder: OutlineInputBorder(
-                        gapPadding: 2,
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide:
-                            const BorderSide(color: ColorConfig.grayBDColor),),
+                      gapPadding: 2,
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: const BorderSide(color: ColorConfig.grayBDColor),
+                    ),
                   ),
                   validator: (value) {
-                    if (_formKey.currentState?.fields['password']?.value !=
-                        value) {
+                    if (_formKey.currentState?.fields['password']?.value != value) {
                       return "비밀번호가 일치하지 않습니다.";
                     }
                     return null;
@@ -435,54 +411,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         child: Icon(
                           Icons.check_circle_rounded,
-                          color: isTermPolicy
-                              ? ColorConfig.primaryColor
-                              : ColorConfig.grayBDColor,
+                          color: isTermPolicy ? ColorConfig.primaryColor : ColorConfig.grayBDColor,
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: RichText(
-                          textAlign: TextAlign.left,
-                          text: TextSpan(
-                              text: "이용약관 ",
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                          text: "이용약관 ",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: ColorConfig.primaryColor),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print("tap here");
+                            },
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: "및 ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(color: ColorConfig.dark75Color),
+                            ),
+                            TextSpan(
+                              text: "개인정보처리방침에 ",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
                                   .copyWith(color: ColorConfig.primaryColor),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  print("tap here");
+                                  print("tap here 1");
                                 },
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: "및 ",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                            color: ColorConfig.dark75Color),),
-                                TextSpan(
-                                  text: "개인정보처리방침에 ",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          color: ColorConfig.primaryColor),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      print("tap here 1");
-                                    },
-                                ),
-                                TextSpan(
-                                    text: "동의합니다.(필수)",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                            color: ColorConfig.dark75Color),),
-                              ],),),
+                            ),
+                            TextSpan(
+                              text: "동의합니다.(필수)",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(color: ColorConfig.dark75Color),
+                            ),
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -501,35 +476,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         child: Icon(
                           Icons.check_circle_rounded,
-                          color: isMarketing
-                              ? ColorConfig.primaryColor
-                              : ColorConfig.grayBDColor,
+                          color: isMarketing ? ColorConfig.primaryColor : ColorConfig.grayBDColor,
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: RichText(
-                          textAlign: TextAlign.left,
-                          text: TextSpan(
-                              text: "마케팅 수신 및 활용 약관",
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                          text: "마케팅 수신 및 활용 약관",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: ColorConfig.primaryColor),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print("tap here");
+                            },
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: "에 동의합니다.(선택) ",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
-                                  .copyWith(color: ColorConfig.primaryColor),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print("tap here");
-                                },
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: "에 동의합니다.(선택) ",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                            color: ColorConfig.dark75Color),),
-                              ],),),
+                                  .copyWith(color: ColorConfig.dark75Color),
+                            ),
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -545,7 +520,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextButton.styleFrom(
                   foregroundColor: ColorConfig.whiteColor,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                   elevation: 5,
                   backgroundColor: isTermPolicy && (_formKey.currentState?.isValid ?? false)
                       ? ColorConfig.blackColor

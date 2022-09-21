@@ -9,8 +9,7 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       elevation: 2,
       child: SafeArea(
-        minimum:
-            const EdgeInsets.only(top: 160, left: 20, right: 20, bottom: 20),
+        minimum: const EdgeInsets.only(top: 160, left: 20, right: 20, bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -38,7 +37,7 @@ class AppDrawer extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16),
               child: GestureDetector(
                 onTap: () {
-                  print("click logout");
+                  GoRouter.of(context).goNamed('login');
                 },
                 child: Text(
                   "마스터로 활동",
@@ -77,10 +76,7 @@ class MenuListTile extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         title: Text(
           title,
-          style: Theme.of(context)
-              .textTheme
-              .headline4!
-              .copyWith(fontWeight: FontWeight.w500),
+          style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.w500),
         ),
       ),
     );
