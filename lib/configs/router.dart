@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/models/review_model.dart';
-import 'package:makerre_flutter/models/search_result_model.dart';
 import 'package:makerre_flutter/screens/auth/login/login_screen.dart';
+import 'package:makerre_flutter/screens/auth/signup/signup_infor_screen.dart';
 import 'package:makerre_flutter/screens/auth/signup/signup_screen.dart';
+import 'package:makerre_flutter/screens/auth/transaction/transaction_screen.dart';
 import 'package:makerre_flutter/screens/home/banner/banner_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_detail_screen.dart';
 import 'package:makerre_flutter/screens/home/best-review/best_review_screen.dart';
@@ -99,25 +100,40 @@ class AppRouter {
         ],
       ),
       GoRoute(
-          name: 'login',
-          path: '/login',
-          builder: (context, state) {
-            return const LoginScreen();
-          },
-          routes: <GoRoute>[
-            GoRoute(
-              name: 'signup',
-              path: 'signup',
-              builder: (context, state) {
-                return const SignUpScreen();
-              },
-            ),
-          ]),
+        name: 'login',
+        path: '/login',
+        builder: (context, state) {
+          return const LoginScreen();
+        },
+        routes: <GoRoute>[
+          GoRoute(
+            name: 'signup',
+            path: 'signup',
+            builder: (context, state) {
+              return const SignUpScreen();
+            },
+          ),
+          GoRoute(
+            name: 'signup_infor',
+            path: 'signup_infor',
+            builder: (context, state) {
+              return SignUpInforScreen();
+            },
+          ),
+        ],
+      ),
       GoRoute(
         name: 'mypage',
         path: '/mypage',
         builder: (context, state) {
           return const MyPageScreen();
+        },
+      ),
+      GoRoute(
+        name: 'transaction',
+        path: '/transaction',
+        builder: (context, state) {
+          return const TransactionScreen();
         },
       )
     ],
@@ -137,5 +153,3 @@ class AppRouter {
 ReviewModel _reviewFrom(String? id) {
   return ReviewModel.reviewList.where((val) => val.id.toString() == id).first;
 }
-
-

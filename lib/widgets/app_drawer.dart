@@ -29,7 +29,7 @@ class AppDrawer extends StatelessWidget {
             const Divider(thickness: 2, color: Colors.black),
             const SizedBox(height: 36),
             const MenuListTile(title: '홈', path: '/'),
-            const MenuListTile(title: '나의 거래', path: '/'),
+            const MenuListTile(title: '나의 거래', path: '/transaction'),
             const MenuListTile(title: '쪽지', path: '/'),
             const MenuListTile(title: '마이페이지', path: '/mypage'),
             Expanded(child: Container()),
@@ -61,7 +61,7 @@ class MenuListTile extends StatelessWidget {
   final String path;
   const MenuListTile({
     Key? key,
-    required this.title,  
+    required this.title,
     required this.path,
   }) : super(key: key);
 
