@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:makerre_flutter/bloc/auth/auth_bloc.dart';
 import 'package:makerre_flutter/models/review_model.dart';
+import 'package:makerre_flutter/repositories/auth_repository.dart';
 import 'package:makerre_flutter/screens/auth/login/login_screen.dart';
 import 'package:makerre_flutter/screens/auth/signup/signup_infor_screen.dart';
 import 'package:makerre_flutter/screens/auth/signup/signup_screen.dart';
@@ -17,6 +20,24 @@ import 'package:makerre_flutter/screens/mypage/mypage_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
+    redirect: (context, goState) {
+      BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          switch (state.status) {
+            case AuthenticationStatus.authenticated:
+              goState.location;
+              break;
+            case AuthenticationStatus.unauthenticated:
+              '/login';
+              break;
+            case AuthenticationStatus.unknown:
+              null;
+              break;
+          }
+        },
+      );
+      return null;
+    },
     routes: <GoRoute>[
       GoRoute(
         name: 'home',
@@ -117,7 +138,7 @@ class AppRouter {
             name: 'signup_infor',
             path: 'signup_infor',
             builder: (context, state) {
-              return SignUpInforScreen();
+              return const SignUpInforScreen();
             },
           ),
         ],
