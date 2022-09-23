@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:makerre_flutter/models/user_model.dart' as user_model;
 import 'package:makerre_flutter/repositories/auth_repository.dart';
 import 'package:makerre_flutter/repositories/user_repository.dart';
@@ -10,10 +11,11 @@ import 'package:makerre_flutter/services/storage_service.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends Bloc<AuthEvent, AuthState> with ChangeNotifier {
   final AuthRepositories _authRepositories;
   final UserRepository _userRepository;
-  late StreamSubscription<AuthenticationStatus> _authenticationStatusSubscription;
+  late StreamSubscription<AuthenticationStatus>
+      _authenticationStatusSubscription;
   final StorageService _storageService;
 
   AuthBloc({
@@ -44,17 +46,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     switch (event.status) {
       case AuthenticationStatus.unauthenticated:
-        return emit(const AuthState.unauthenticated());
+        emit(const AuthState.unauthenticated());
+        break;
       case AuthenticationStatus.authenticated:
-        final String? accessToken = await _storageService.readSecureData('access_token');
-        return emit(
+        final String? accessToken =
+            await _storageService.readSecureData('access_token');
+        emit(
           accessToken != ''
               ? AuthState.authenticated(accessToken!)
               : const AuthState.unauthenticated(),
         );
+        break;
       case AuthenticationStatus.unknown:
-        return emit(const AuthState.unknown());
+        emit(const AuthState.unknown());
+        break;
     }
+    notifyListeners();
   }
 
   void _onLoggedOut(LoggedOut event, Emitter<AuthState> emit) async {

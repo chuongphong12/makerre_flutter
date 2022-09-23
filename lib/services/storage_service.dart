@@ -14,7 +14,7 @@ class StorageService {
   }
 
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
-        encryptedSharedPreferences: true,
+        encryptedSharedPreferences: false,
       );
 
   IOSOptions _getIosOptions() => const IOSOptions();

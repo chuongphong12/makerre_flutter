@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:makerre_flutter/bloc/auth/auth_bloc.dart';
+import 'package:makerre_flutter/bloc/login/login_bloc.dart';
 import 'package:makerre_flutter/configs/router.dart';
 import 'package:makerre_flutter/configs/theme.dart';
 import 'package:makerre_flutter/repositories/auth_repository.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => AuthRepositories(),
         ),
+        RepositoryProvider(
+          create: (context) => UserRepository(),
+        )
       ],
       child: MultiBlocProvider(
         providers: [
@@ -37,6 +41,16 @@ class MyApp extends StatelessWidget {
               authRepositories: context.read<AuthRepositories>(),
               storageService: _storageService,
               userRepository: context.read<UserRepository>(),
+            )..add(
+                const AuthenticationStatusChanged(
+                    AuthenticationStatus.authenticated),
+              ),
+          ),
+          BlocProvider(
+            create: (context) => LoginBloc(
+              authRepositories: context.read<AuthRepositories>(),
+              authBloc: context.read<AuthBloc>(),
+              storageService: _storageService,
             ),
           )
         ],
@@ -44,9 +58,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: theme(),
-          routeInformationProvider: AppRouter.router.routeInformationProvider,
-          routeInformationParser: AppRouter.router.routeInformationParser,
-          routerDelegate: AppRouter.router.routerDelegate,
+          routerConfig: routes(),
           supportedLocales: const [
             Locale('en'),
             Locale('ko'),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,26 +20,31 @@ import 'package:makerre_flutter/screens/home/sub-category/sub_category_master_sc
 import 'package:makerre_flutter/screens/home/sub-category/sub_category_screen.dart';
 import 'package:makerre_flutter/screens/mypage/mypage_screen.dart';
 
-class AppRouter {
-  static GoRouter router = GoRouter(
+GoRouter routes() {
+  return GoRouter(
     redirect: (context, goState) {
-      BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          switch (state.status) {
-            case AuthenticationStatus.authenticated:
-              goState.location;
-              break;
-            case AuthenticationStatus.unauthenticated:
-              '/login';
-              break;
-            case AuthenticationStatus.unknown:
-              null;
-              break;
-          }
-        },
-      );
+      // if the user is not logged in, they need to login
+      AuthenticationStatus loggedIn =
+          BlocProvider.of<AuthBloc>(context).state.status;
+
+      final loggingIn = goState.subloc == '/login';
+
+      // bundle the location the user is coming from into a query parameter
+      final fromp = goState.subloc == '/' ? '' : '?from=${goState.subloc}';
+      if (loggedIn != AuthenticationStatus.authenticated) {
+        return loggingIn ? null : '/login$fromp';
+      }
+
+      // if the user is logged in, send them where they were going before (or
+      // home if they weren't going anywhere)
+      if (loggingIn && loggedIn == AuthenticationStatus.authenticated) {
+        return goState.queryParams['from'] ?? '/';
+      }
+
+      // no need to redirect at all
       return null;
     },
+    refreshListenable: GoRouterRefreshStream(AuthRepositories().status),
     routes: <GoRoute>[
       GoRoute(
         name: 'home',
@@ -159,7 +166,6 @@ class AppRouter {
       )
     ],
     initialLocation: '/',
-    debugLogDiagnostics: true,
     errorBuilder: (context, state) => Scaffold(
       key: state.pageKey,
       body: Center(
@@ -173,4 +179,25 @@ class AppRouter {
 
 ReviewModel _reviewFrom(String? id) {
   return ReviewModel.reviewList.where((val) => val.id.toString() == id).first;
+}
+
+class GoRouterRefreshStream extends ChangeNotifier {
+  /// Creates a [GoRouterRefreshStream].
+  ///
+  /// Every time the [stream] receives an event the [GoRouter] will refresh its
+  /// current route.
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen(
+          (dynamic _) => notifyListeners(),
+        );
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
 }

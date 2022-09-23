@@ -6,23 +6,39 @@ class SimpleBlocObserver extends BlocObserver {
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     if (kDebugMode) {
-      print('${bloc.runtimeType} $event');
+      print('onEvent -- ${bloc.runtimeType}, $event');
     }
   }
 
   @override
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
     if (kDebugMode) {
-      print('${bloc.runtimeType} $error');
+      print('onChange -- ${bloc.runtimeType}, $change');
     }
-    super.onError(bloc, error, stackTrace);
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
     if (kDebugMode) {
-      print(transition);
+      print('onTransition -- ${bloc.runtimeType}, $transition');
+    }
+  }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    if (kDebugMode) {
+      print('onError -- ${bloc.runtimeType}, $error');
+    }
+    super.onError(bloc, error, stackTrace);
+  }
+
+  @override
+  void onClose(BlocBase bloc) {
+    super.onClose(bloc);
+    if (kDebugMode) {
+      print('onClose -- ${bloc.runtimeType}');
     }
   }
 }

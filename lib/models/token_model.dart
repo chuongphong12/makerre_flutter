@@ -25,9 +25,9 @@ class Token {
     required String role,
   }) =>
       Token(
-        token: token ?? this.token,
-        refreshToken: refreshToken ?? this.refreshToken,
-        role: role ?? this.role,
+        token: token,
+        refreshToken: refreshToken,
+        role: role,
       );
 
   factory Token.fromJson(Map<String, dynamic> json) => Token(

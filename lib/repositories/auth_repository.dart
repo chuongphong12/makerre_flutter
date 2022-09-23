@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:makerre_flutter/constants/api_constant.dart';
+import 'package:makerre_flutter/models/Response.dart';
 import 'package:makerre_flutter/models/token_model.dart';
 import 'package:makerre_flutter/services/storage_service.dart';
 
@@ -25,16 +26,18 @@ class AuthRepositories {
   Future<String> logIn({
     required String email,
     required String password,
-    required String deviceToken,
   }) async {
     Token? token;
+    _dio.options.headers['X-Requested-With'] = 'XMLHttpRequest';
     try {
       Response response = await _dio.post('$baseURL/app/admin/login', data: {
         'account': email,
         'password': password,
-        'deviceToken': deviceToken,
+        'deviceToken':
+            'd6DijQiLQrm0OikyRx2KoV:APA91bF3-S7tZsSCezikahyorSlwP1fDw25S2t-JMZMtaOegkOSdYHIysMDHTLCQOWMY7VJZfQwIYcevjGAZXeR_JJ5dxfEC76jIeCIRP1f7U5mUt5eoyJCljQmhPt_Fv0TaweH3dCN',
       });
-      token = Token.fromJson(response.data);
+      ApiResponse resp = ApiResponse.fromJson(response.data);
+      token = Token.fromJson(resp.data);
       if (response.statusCode == 200) {
         return token.token;
       } else {

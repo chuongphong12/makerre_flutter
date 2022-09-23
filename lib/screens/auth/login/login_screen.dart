@@ -1,7 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:makerre_flutter/bloc/login/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,6 +15,30 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+
+  final String email = 'customer2618@remaker.kr';
+  final String password = 'Admin@123123';
+
+  void _onLoginButtonPress() async {
+    _formKey.currentState!.save();
+    if (_formKey.currentState!.validate()) {
+      final data = _formKey.currentState!.value;
+      try {
+        BlocProvider.of<LoginBloc>(context).add(
+          LoginButtonPressed(
+            email: data['email'],
+            password: data['password'],
+          ),
+        );
+      } catch (e) {
+        if (kDebugMode) {
+          print(e.toString());
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 104),
                     FormBuilder(
+                      key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -62,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 8),
                           FormBuilderTextField(
                             name: 'email',
+                            initialValue: email,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderSide: const BorderSide(width: 1),
@@ -77,6 +107,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     BorderSide(color: Color(0xFFBDBDBD)),
                               ),
                             ),
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.email(),
+                            ]),
                             style:
                                 Theme.of(context).textTheme.headline6!.copyWith(
                                       color: const Color(0xFFFFFFFF),
@@ -95,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 8),
                           FormBuilderTextField(
                             name: 'password',
+                            initialValue: password,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderSide: const BorderSide(width: 1),
@@ -110,6 +145,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     BorderSide(color: Color(0xFFBDBDBD)),
                               ),
                             ),
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
                             obscureText: true,
                             style:
                                 Theme.of(context).textTheme.headline6!.copyWith(
@@ -122,9 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 32),
                     ElevatedButton(
-                      onPressed: () {
-                        GoRouter.of(context).go('/');
-                      },
+                      onPressed: _onLoginButtonPress,
                       style: ElevatedButton.styleFrom(
                         fixedSize: const Size(double.maxFinite, 52),
                         shape: RoundedRectangleBorder(
