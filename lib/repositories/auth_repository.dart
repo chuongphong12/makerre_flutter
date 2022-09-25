@@ -36,9 +36,9 @@ class AuthRepositories {
         'deviceToken':
             'd6DijQiLQrm0OikyRx2KoV:APA91bF3-S7tZsSCezikahyorSlwP1fDw25S2t-JMZMtaOegkOSdYHIysMDHTLCQOWMY7VJZfQwIYcevjGAZXeR_JJ5dxfEC76jIeCIRP1f7U5mUt5eoyJCljQmhPt_Fv0TaweH3dCN',
       });
-      ApiResponse resp = ApiResponse.fromJson(response.data);
-      token = Token.fromJson(resp.data);
       if (response.statusCode == 200) {
+        ApiResponse resp = ApiResponse.fromJson(response.data);
+        token = Token.fromJson(resp.data);
         return token.token;
       } else {
         throw Exception('Failed to login');
