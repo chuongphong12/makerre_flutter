@@ -11,7 +11,7 @@ enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 class AuthRepositories {
   final Dio _dio = Dio();
   final StorageService _storageService = StorageService();
-  final _controller = StreamController<AuthenticationStatus>();
+  final _controller = StreamController<AuthenticationStatus>.broadcast();
 
   Stream<AuthenticationStatus> get status async* {
     final bool hasToken = await _storageService.hasToken();
@@ -67,5 +67,6 @@ class AuthRepositories {
     // }
   }
 
+  @override
   void dispose() => _controller.close();
 }

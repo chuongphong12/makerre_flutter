@@ -14,8 +14,8 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> with ChangeNotifier {
   final AuthRepositories _authRepositories;
   final UserRepository _userRepository;
-  late StreamSubscription<AuthenticationStatus>
-      _authenticationStatusSubscription;
+  // late StreamSubscription<AuthenticationStatus>
+  //     _authenticationStatusSubscription;
   final StorageService _storageService;
 
   AuthBloc({
@@ -28,14 +28,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with ChangeNotifier {
         super(const AuthState.unknown()) {
     on<LoggedOut>(_onLoggedOut);
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
-    _authenticationStatusSubscription = _authRepositories.status.listen(
-      (status) => add(AuthenticationStatusChanged(status)),
-    );
+    // _authenticationStatusSubscription = _authRepositories.status.listen(
+    //   (status) => add(AuthenticationStatusChanged(status)),
+    // );
   }
 
   @override
   Future<void> close() {
-    _authenticationStatusSubscription.cancel();
+    // _authenticationStatusSubscription.cancel();
     _authRepositories.dispose();
     return super.close();
   }
@@ -61,7 +61,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with ChangeNotifier {
         emit(const AuthState.unknown());
         break;
     }
-    notifyListeners();
   }
 
   void _onLoggedOut(LoggedOut event, Emitter<AuthState> emit) async {

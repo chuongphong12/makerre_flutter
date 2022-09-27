@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:form_builder_validators/localization/l10n.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:makerre_flutter/bloc/auth/auth_bloc.dart';
 import 'package:makerre_flutter/bloc/login/login_bloc.dart';
 import 'package:makerre_flutter/configs/router.dart';
@@ -41,10 +41,7 @@ class MyApp extends StatelessWidget {
               authRepositories: context.read<AuthRepositories>(),
               storageService: _storageService,
               userRepository: context.read<UserRepository>(),
-            )..add(
-                const AuthenticationStatusChanged(
-                    AuthenticationStatus.authenticated),
-              ),
+            ),
           ),
           BlocProvider(
             create: (context) => LoginBloc(
@@ -54,20 +51,25 @@ class MyApp extends StatelessWidget {
             ),
           )
         ],
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: theme(),
-          routerConfig: routes(),
-          supportedLocales: const [
-            Locale('en'),
-            Locale('ko'),
-          ],
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            FormBuilderLocalizations.delegate,
-          ],
+        child: Builder(
+          builder: (context) => MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: theme(),
+            routerConfig: GoRouterClass(
+              authBloc: context.read<AuthBloc>(),
+              authRepositories: context.read<AuthRepositories>(),
+            ).goRouter,
+            supportedLocales: const [
+              Locale('en'),
+              Locale('ko'),
+            ],
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              FormBuilderLocalizations.delegate,
+            ],
+          ),
         ),
       ),
     );

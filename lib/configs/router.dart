@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/bloc/auth/auth_bloc.dart';
 import 'package:makerre_flutter/models/review_model.dart';
@@ -20,31 +19,42 @@ import 'package:makerre_flutter/screens/home/sub-category/sub_category_master_sc
 import 'package:makerre_flutter/screens/home/sub-category/sub_category_screen.dart';
 import 'package:makerre_flutter/screens/mypage/mypage_screen.dart';
 
-GoRouter routes() {
-  return GoRouter(
+class GoRouterClass {
+  final AuthBloc authBloc;
+  final AuthRepositories authRepositories;
+
+  GoRouterClass({
+    required this.authBloc,
+    required this.authRepositories,
+  });
+
+  late final goRouter = GoRouter(
     redirect: (context, goState) {
       // if the user is not logged in, they need to login
-      AuthenticationStatus loggedIn =
-          BlocProvider.of<AuthBloc>(context).state.status;
+      AuthenticationStatus appStatus = authBloc.state.status;
+      bool loggedIn = appStatus == AuthenticationStatus.authenticated;
 
-      final loggingIn = goState.subloc == '/login';
+      final loggingIn = goState.location == '/login';
 
       // bundle the location the user is coming from into a query parameter
       final fromp = goState.subloc == '/' ? '' : '?from=${goState.subloc}';
-      if (loggedIn != AuthenticationStatus.authenticated) {
-        return loggingIn ? null : '/login$fromp';
+      if (!loggedIn && !loggingIn) {
+        return '/login';
       }
 
       // if the user is logged in, send them where they were going before (or
       // home if they weren't going anywhere)
-      if (loggingIn && loggedIn == AuthenticationStatus.authenticated) {
-        return goState.queryParams['from'] ?? '/';
+      if (loggingIn && loggedIn) {
+        return '/';
       }
 
       // no need to redirect at all
       return null;
     },
-    refreshListenable: GoRouterRefreshStream(AuthRepositories().status),
+    refreshListenable: AuthStateNotifier(
+      authRepositories: authRepositories,
+      authBloc: authBloc,
+    ),
     routes: <GoRoute>[
       GoRoute(
         name: 'home',
@@ -175,29 +185,34 @@ GoRouter routes() {
       ),
     ),
   );
-}
 
-ReviewModel _reviewFrom(String? id) {
-  return ReviewModel.reviewList.where((val) => val.id.toString() == id).first;
-}
-
-class GoRouterRefreshStream extends ChangeNotifier {
-  /// Creates a [GoRouterRefreshStream].
-  ///
-  /// Every time the [stream] receives an event the [GoRouter] will refresh its
-  /// current route.
-  GoRouterRefreshStream(Stream<dynamic> stream) {
-    notifyListeners();
-    _subscription = stream.asBroadcastStream().listen(
-          (dynamic _) => notifyListeners(),
-        );
+  ReviewModel _reviewFrom(String? id) {
+    return ReviewModel.reviewList.where((val) => val.id.toString() == id).first;
   }
+}
 
-  late final StreamSubscription<dynamic> _subscription;
+class AuthStateNotifier with ChangeNotifier {
+  final AuthRepositories authRepositories;
+  final AuthBloc authBloc;
+  late StreamSubscription<AuthenticationStatus>
+      authenticationStatusSubscription;
+  AuthStateNotifier({
+    required this.authRepositories,
+    required this.authBloc,
+  }) {
+    notifyListeners();
+    authenticationStatusSubscription = authRepositories.status.listen(
+      (status) {
+        authBloc.add(AuthenticationStatusChanged(status));
+        notifyListeners();
+      },
+    );
+  }
 
   @override
   void dispose() {
-    _subscription.cancel();
+    authenticationStatusSubscription.cancel();
+    authRepositories.dispose();
     super.dispose();
   }
 }
