@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/bloc/login/login_bloc.dart';
+import 'package:makerre_flutter/configs/color.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -31,6 +32,21 @@ class _LoginScreenState extends State<LoginScreen> {
             password: data['password'],
           ),
         );
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [Spacer(), new CircularProgressIndicator(), Spacer()],
+              ),
+            );
+          },
+        );
+        Future.delayed(
+            Duration(seconds: 2), () => GoRouter.of(context).go('/'));
       } catch (e) {
         if (kDebugMode) {
           print(e.toString());

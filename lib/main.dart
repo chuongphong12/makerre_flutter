@@ -35,16 +35,13 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MultiBlocProvider(
-        providers: [
+        providers: [  
           BlocProvider(
             create: (context) => AuthBloc(
               authRepositories: context.read<AuthRepositories>(),
               storageService: _storageService,
               userRepository: context.read<UserRepository>(),
-            )..add(
-                const AuthenticationStatusChanged(
-                    AuthenticationStatus.authenticated),
-              ),
+            ),
           ),
           BlocProvider(
             create: (context) => LoginBloc(
