@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:makerre_flutter/models/banner_model.dart';
 import 'package:makerre_flutter/models/review_model.dart';
+import 'package:makerre_flutter/repositories/banner_repository.dart';
 import 'package:makerre_flutter/widgets/app_drawer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -29,6 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int activeIndex = 0;
 
   final List<ReviewModel> productList = ReviewModel.reviewList;
+
+  final BannerRepository bannerRepository = BannerRepository();
 
   List<CarouselItem> carouselItem = [
     CarouselItem(
@@ -65,78 +70,88 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 276.0,
-                    viewportFraction: 1,
-                    initialPage: activeIndex,
-                    onPageChanged: (int index, CarouselPageChangedReason reason) {
-                      setState(() {
-                        activeIndex = index;
-                      });
-                    },
-                  ),
-                  items: carouselItem.map((val) {
-                    return GestureDetector(
-                      onTap: () {
-                        GoRouter.of(context).goNamed('banner');
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(val.image),
-                            fit: BoxFit.cover,
-                          ),
+            FutureBuilder(
+              future: bannerRepository.getBanner(),
+              builder: (context, AsyncSnapshot<List<BannerModel>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 276,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  final banners = snapshot.data;
+                  return Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          height: 276,
+                          aspectRatio: MediaQuery.of(context).size.width / 276,
+                          viewportFraction: 1,
+                          initialPage: activeIndex,
+                          onPageChanged:
+                              (int index, CarouselPageChangedReason reason) {
+                            setState(() {
+                              activeIndex = index;
+                            });
+                          },
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0, bottom: 32.25),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                val.date,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(color: Colors.white),
-                              ),
-                              SizedBox(
-                                width: 178,
-                                child: Text(
-                                  val.text,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(color: Colors.white),
+                        items: banners!.map((val) {
+                          return GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).goNamed(
+                                'banner',
+                                params: {'id': val.id.toString()},
+                              );
+                            },
+                            child: CachedNetworkImage(
+                              imageUrl: val.image,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 276,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ],
+                              placeholder: (context, url) => SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: 276,
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      Positioned(
+                        bottom: 15,
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: activeIndex,
+                          count: carouselItem.length,
+                          effect: const SlideEffect(
+                            spacing: 8,
+                            dotWidth: 33,
+                            dotHeight: 2,
+                            strokeWidth: 1.5,
+                            activeDotColor: Colors.white,
                           ),
                         ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                Positioned(
-                  bottom: 15,
-                  child: AnimatedSmoothIndicator(
-                    activeIndex: activeIndex,
-                    count: carouselItem.length,
-                    effect: const SlideEffect(
-                      spacing: 8,
-                      dotWidth: 33,
-                      dotHeight: 2,
-                      strokeWidth: 1.5,
-                      activeDotColor: Colors.white,
-                    ),
-                  ),
-                )
-              ],
+                      )
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              },
             ),
             const SizedBox(height: 52),
             Padding(
@@ -191,11 +206,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         hintText: '원하는 서비스를 검색해보세요.',
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor, width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor, width: 2),
                         ),
                       ),
                     ),
@@ -264,12 +281,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     Text(
                                       productList[index].title,
-                                      style: Theme.of(context).textTheme.headline5,
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
                                     ),
                                     const SizedBox(width: 4),
                                     Text(
                                       productList[index].subtitle,
-                                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
                                             fontWeight: FontWeight.w600,
                                             color: const Color(0xFFBDBDBD),
                                           ),

@@ -85,9 +85,12 @@ class GoRouterClass {
           ),
           GoRoute(
             name: 'banner',
-            path: 'banner',
+            path: 'banner/:id',
             builder: (context, state) {
-              return const BannerScreen();
+              final bannerId = state.params['id'];
+              return BannerScreen(
+                id: bannerId!,
+              );
             },
           ),
           GoRoute(
