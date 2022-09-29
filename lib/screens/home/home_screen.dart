@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/models/banner_model.dart';
 import 'package:makerre_flutter/models/review_model.dart';
 import 'package:makerre_flutter/repositories/banner_repository.dart';
+import 'package:makerre_flutter/repositories/service_repository.dart';
 import 'package:makerre_flutter/widgets/app_drawer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<ReviewModel> productList = ReviewModel.reviewList;
 
   final BannerRepository bannerRepository = BannerRepository();
+  final ServiceRepository serviceRepository = ServiceRepository();
 
   List<CarouselItem> carouselItem = [
     CarouselItem(
@@ -92,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 276,
                           aspectRatio: MediaQuery.of(context).size.width / 276,
                           viewportFraction: 1,
+                          autoPlay: true,
                           initialPage: activeIndex,
                           onPageChanged:
                               (int index, CarouselPageChangedReason reason) {
@@ -159,30 +162,27 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildService(
-                        context,
-                        'assets/images/icons/scissors-line.svg',
-                        '리폼',
-                      ),
-                      _buildService(
-                        context,
-                        'assets/images/icons/bag-line.svg',
-                        '수선',
-                      ),
-                      _buildService(
-                        context,
-                        'assets/images/icons/paint-line.svg',
-                        '염색',
-                      ),
-                      _buildService(
-                        context,
-                        'assets/images/icons/washing-machine-line.svg',
-                        '클리닝',
-                      ),
-                    ],
+                  FutureBuilder(
+                    future: serviceRepository.getService(),
+                    builder: (context, AsyncSnapshot<List<IService>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.active) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        final services = snapshot.data;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: services!
+                              .map((e) =>
+                                  _buildService(context, e.image, e.name))
+                              .toList(),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
                   ),
                   const SizedBox(height: 64),
                   Text(
@@ -344,11 +344,14 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Column(
         children: [
-          SvgPicture.asset(
-            icon,
-            width: 52,
+          CachedNetworkImage(
+            imageUrl: icon,
+            width: 50,
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
             title,
             style: Theme.of(context).textTheme.headline5,
