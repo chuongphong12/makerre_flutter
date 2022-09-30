@@ -4,9 +4,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:makerre_flutter/bloc/auth/auth_bloc.dart';
 import 'package:makerre_flutter/bloc/login/login_bloc.dart';
+import 'package:makerre_flutter/bloc/product/product_bloc.dart';
 import 'package:makerre_flutter/configs/router.dart';
 import 'package:makerre_flutter/configs/theme.dart';
 import 'package:makerre_flutter/repositories/auth_repository.dart';
+import 'package:makerre_flutter/repositories/service_repository.dart';
 import 'package:makerre_flutter/repositories/user_repository.dart';
 import 'package:makerre_flutter/services/storage_service.dart';
 import 'package:makerre_flutter/simple_bloc_observer.dart';
@@ -32,7 +34,10 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (context) => UserRepository(),
-        )
+        ),
+        RepositoryProvider(
+          create: (context) => ServiceRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -48,6 +53,11 @@ class MyApp extends StatelessWidget {
               authRepositories: context.read<AuthRepositories>(),
               authBloc: context.read<AuthBloc>(),
               storageService: _storageService,
+            ),
+          ),
+          BlocProvider(
+            create: (context) => ProductBloc(
+              serviceRepository: context.read<ServiceRepository>(),
             ),
           )
         ],

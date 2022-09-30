@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:makerre_flutter/bloc/auth/auth_bloc.dart';
 import 'package:makerre_flutter/models/review_model.dart';
 import 'package:makerre_flutter/repositories/auth_repository.dart';
+import 'package:makerre_flutter/repositories/service_repository.dart';
 import 'package:makerre_flutter/screens/auth/login/login_screen.dart';
 import 'package:makerre_flutter/screens/auth/signup/signup_infor_screen.dart';
 import 'package:makerre_flutter/screens/auth/signup/signup_screen.dart';
@@ -104,9 +105,8 @@ class GoRouterClass {
             name: 'sub-cate',
             path: 'sub-category/:name',
             builder: (context, state) {
-              final name = state.params['name'];
               return SubCategoryScreen(
-                name: name!,
+                service: state.extra as IService,
               );
             },
             routes: <GoRoute>[

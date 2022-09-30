@@ -37,29 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final BannerRepository bannerRepository = BannerRepository();
   final ServiceRepository serviceRepository = ServiceRepository();
 
-  List<CarouselItem> carouselItem = [
-    CarouselItem(
-      image: 'assets/images/checker.png',
-      date: '09.03 - 09.15',
-      text: '원스모어 첫 회원 10% 할인 쿠폰',
-    ),
-    CarouselItem(
-      image: 'assets/images/checker.png',
-      date: '09.03 - 09.15',
-      text: '원스모어 첫 회원 10% 할인 쿠폰',
-    ),
-    CarouselItem(
-      image: 'assets/images/checker.png',
-      date: '09.03 - 09.15',
-      text: '원스모어 첫 회원 10% 할인 쿠폰',
-    ),
-    CarouselItem(
-      image: 'assets/images/checker.png',
-      date: '09.03 - 09.15',
-      text: '원스모어 첫 회원 10% 할인 쿠폰',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bottom: 15,
                         child: AnimatedSmoothIndicator(
                           activeIndex: activeIndex,
-                          count: carouselItem.length,
+                          count: banners.length,
                           effect: const SlideEffect(
                             spacing: 8,
                             dotWidth: 33,
@@ -175,8 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: services!
-                              .map((e) =>
-                                  _buildService(context, e.image, e.name))
+                              .map((e) => _buildService(context, e))
                               .toList(),
                         );
                       } else {
@@ -337,15 +313,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildService(BuildContext context, String icon, String title) {
+  Widget _buildService(BuildContext context, IService services) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).goNamed('sub-cate', params: {'name': title});
+        GoRouter.of(context).goNamed(
+          'sub-cate',
+          params: {'name': services.name},
+          extra: services,
+        );
       },
       child: Column(
         children: [
           CachedNetworkImage(
-            imageUrl: icon,
+            imageUrl: services.image,
             width: 50,
             placeholder: (context, url) => const Center(
               child: CircularProgressIndicator(),
@@ -353,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 12),
           Text(
-            title,
+            services.name,
             style: Theme.of(context).textTheme.headline5,
           )
         ],
