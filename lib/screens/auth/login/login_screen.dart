@@ -31,6 +31,32 @@ class _LoginScreenState extends State<LoginScreen> {
             password: data['password'],
           ),
         );
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => Dialog(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // The loading indicator
+                  const CircularProgressIndicator.adaptive(),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text(
+                    'Loading...',
+                    style: Theme.of(context).textTheme.headline6,
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+        await Future.delayed(
+            const Duration(seconds: 2), () => GoRouter.of(context).go('/'));
       } catch (e) {
         if (kDebugMode) {
           print(e.toString());

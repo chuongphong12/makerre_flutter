@@ -18,6 +18,7 @@ class Api {
           }
           if (accessToken != null && accessToken != '') {
             options.headers['Authorization'] = 'Bearer $accessToken';
+            options.headers['X-Requested-With'] = 'XMLHttpRequest';
           }
           return handler.next(options);
         },
