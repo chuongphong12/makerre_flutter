@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:makerre_flutter/bloc/auth/auth_bloc.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -9,7 +11,8 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       elevation: 2,
       child: SafeArea(
-        minimum: const EdgeInsets.only(top: 160, left: 20, right: 20, bottom: 20),
+        minimum:
+            const EdgeInsets.only(top: 160, left: 20, right: 20, bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -37,7 +40,7 @@ class AppDrawer extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16),
               child: GestureDetector(
                 onTap: () {
-                  GoRouter.of(context).goNamed('login');
+                  context.read<AuthBloc>().add(LoggedOut());
                 },
                 child: Text(
                   "마스터로 활동",
@@ -76,7 +79,10 @@ class MenuListTile extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         title: Text(
           title,
-          style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.w500),
+          style: Theme.of(context)
+              .textTheme
+              .headline4!
+              .copyWith(fontWeight: FontWeight.w500),
         ),
       ),
     );

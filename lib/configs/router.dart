@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:makerre_flutter/bloc/auth/auth_bloc.dart';
 import 'package:makerre_flutter/models/review_model.dart';
+import 'package:makerre_flutter/repositories/auth_repository.dart';
+import 'package:makerre_flutter/repositories/service_repository.dart';
 import 'package:makerre_flutter/screens/auth/login/login_screen.dart';
 import 'package:makerre_flutter/screens/auth/signup/signup_infor_screen.dart';
 import 'package:makerre_flutter/screens/auth/signup/signup_screen.dart';
@@ -15,8 +20,42 @@ import 'package:makerre_flutter/screens/home/sub-category/sub_category_master_sc
 import 'package:makerre_flutter/screens/home/sub-category/sub_category_screen.dart';
 import 'package:makerre_flutter/screens/mypage/mypage_screen.dart';
 
-class AppRouter {
-  static GoRouter router = GoRouter(
+class GoRouterClass {
+  final AuthBloc authBloc;
+  final AuthRepositories authRepositories;
+
+  GoRouterClass({
+    required this.authBloc,
+    required this.authRepositories,
+  });
+
+  late final goRouter = GoRouter(
+    redirect: (context, goState) {
+      // if the user is not logged in, they need to login
+      AuthenticationStatus appStatus = authBloc.state.status;
+      bool loggedIn = appStatus == AuthenticationStatus.authenticated;
+
+      final loggingIn = goState.location == '/login';
+
+      // bundle the location the user is coming from into a query parameter
+      final fromp = goState.subloc == '/' ? '' : '?from=${goState.subloc}';
+      if (!loggedIn && !loggingIn) {
+        return '/login';
+      }
+
+      // if the user is logged in, send them where they were going before (or
+      // home if they weren't going anywhere)
+      if (loggingIn && loggedIn) {
+        return '/';
+      }
+
+      // no need to redirect at all
+      return null;
+    },
+    refreshListenable: AuthStateNotifier(
+      authRepositories: authRepositories,
+      authBloc: authBloc,
+    ),
     routes: <GoRoute>[
       GoRoute(
         name: 'home',
@@ -47,9 +86,12 @@ class AppRouter {
           ),
           GoRoute(
             name: 'banner',
-            path: 'banner',
+            path: 'banner/:id',
             builder: (context, state) {
-              return const BannerScreen();
+              final bannerId = state.params['id'];
+              return BannerScreen(
+                id: bannerId!,
+              );
             },
           ),
           GoRoute(
@@ -63,9 +105,8 @@ class AppRouter {
             name: 'sub-cate',
             path: 'sub-category/:name',
             builder: (context, state) {
-              final name = state.params['name'];
               return SubCategoryScreen(
-                name: name!,
+                service: state.extra as IService,
               );
             },
             routes: <GoRoute>[
@@ -117,7 +158,7 @@ class AppRouter {
             name: 'signup_infor',
             path: 'signup_infor',
             builder: (context, state) {
-              return SignUpInforScreen();
+              return const SignUpInforScreen();
             },
           ),
         ],
@@ -138,7 +179,6 @@ class AppRouter {
       )
     ],
     initialLocation: '/',
-    debugLogDiagnostics: true,
     errorBuilder: (context, state) => Scaffold(
       key: state.pageKey,
       body: Center(
@@ -148,8 +188,34 @@ class AppRouter {
       ),
     ),
   );
+
+  ReviewModel _reviewFrom(String? id) {
+    return ReviewModel.reviewList.where((val) => val.id.toString() == id).first;
+  }
 }
 
-ReviewModel _reviewFrom(String? id) {
-  return ReviewModel.reviewList.where((val) => val.id.toString() == id).first;
+class AuthStateNotifier with ChangeNotifier {
+  final AuthRepositories authRepositories;
+  final AuthBloc authBloc;
+  late StreamSubscription<AuthenticationStatus>
+      authenticationStatusSubscription;
+  AuthStateNotifier({
+    required this.authRepositories,
+    required this.authBloc,
+  }) {
+    notifyListeners();
+    authenticationStatusSubscription = authRepositories.status.listen(
+      (status) {
+        authBloc.add(AuthenticationStatusChanged(status));
+        notifyListeners();
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    authenticationStatusSubscription.cancel();
+    authRepositories.dispose();
+    super.dispose();
+  }
 }
