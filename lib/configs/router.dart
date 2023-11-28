@@ -35,10 +35,10 @@ class GoRouterClass {
       AuthenticationStatus appStatus = authBloc.state.status;
       bool loggedIn = appStatus == AuthenticationStatus.authenticated;
 
-      final loggingIn = goState.location == '/login';
+      final loggingIn = goState.matchedLocation == '/login';
 
       // bundle the location the user is coming from into a query parameter
-      final fromp = goState.subloc == '/' ? '' : '?from=${goState.subloc}';
+      final fromp = goState.fullPath == '/' ? '' : '?from=${goState.fullPath}';
       if (!loggedIn && !loggingIn) {
         return '/login';
       }
@@ -75,7 +75,7 @@ class GoRouterClass {
                 name: 'review-detail',
                 path: ':id',
                 builder: (context, state) {
-                  final reviewId = state.params['id'];
+                  final reviewId = state.pathParameters['id'];
 
                   return BestReviewDetailScreen(
                     review: _reviewFrom(reviewId),
@@ -88,7 +88,7 @@ class GoRouterClass {
             name: 'banner',
             path: 'banner/:id',
             builder: (context, state) {
-              final bannerId = state.params['id'];
+              final bannerId = state.pathParameters['id'];
               return BannerScreen(
                 id: bannerId!,
               );
@@ -114,8 +114,8 @@ class GoRouterClass {
                 name: 'sub-cate-master',
                 path: ':id',
                 builder: (context, state) {
-                  final id = state.params['id'];
-                  final name = state.params['name'];
+                  final id = state.pathParameters['id'];
+                  final name = state.pathParameters['name'];
                   return SubCategoryMasterScreen(
                     masterId: id!,
                     name: name!,
@@ -126,9 +126,9 @@ class GoRouterClass {
                     path: 'review/:reviewId',
                     name: 'review',
                     builder: (context, state) {
-                      final id = state.params['id'];
-                      final name = state.params['name'];
-                      final reviewId = state.params['reviewId'];
+                      final id = state.pathParameters['id'];
+                      final name = state.pathParameters['name'];
+                      final reviewId = state.pathParameters['reviewId'];
                       return ReviewScreen(
                         reviewId: reviewId!,
                       );

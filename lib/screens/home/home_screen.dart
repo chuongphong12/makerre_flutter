@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,7 +24,7 @@ class CarouselItem {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -85,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               GoRouter.of(context).goNamed(
                                 'banner',
-                                params: {'id': val.id.toString()},
+                                pathParameters: {'id': val.id.toString()},
                               );
                             },
                             child: CachedNetworkImage(
@@ -163,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 64),
                   Text(
                     '찾으시는 서비스가 없나요?',
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(height: 24),
                   ConstrainedBox(
@@ -199,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         '베스트 리뷰',
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       TextButton(
                         onPressed: () {
@@ -210,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Text(
                               '전체보기',
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                             const SizedBox(width: 11),
                             Icon(
@@ -257,15 +258,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     Text(
                                       productList[index].title,
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
                                     const SizedBox(width: 4),
                                     Text(
                                       productList[index].subtitle,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyLarge!
                                           .copyWith(
                                             fontWeight: FontWeight.w600,
                                             color: const Color(0xFFBDBDBD),
@@ -285,7 +287,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       ignoreGestures: true,
                                       onRatingUpdate: (rating) {
-                                        print(rating);
+                                        if (kDebugMode) {
+                                          print(rating);
+                                        }
                                       },
                                     )
                                   ],
@@ -294,7 +298,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Text(
                                   productList[index].description,
                                   softWrap: true,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
                                 ),
                               ],
                             ),
@@ -318,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         GoRouter.of(context).goNamed(
           'sub-cate',
-          params: {'name': services.name},
+          pathParameters: {'name': services.name},
           extra: services,
         );
       },
@@ -334,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 12),
           Text(
             services.name,
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.titleMedium,
           )
         ],
       ),

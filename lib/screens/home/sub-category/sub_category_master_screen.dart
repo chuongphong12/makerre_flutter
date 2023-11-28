@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,10 +14,10 @@ class SubCategoryMasterScreen extends StatefulWidget {
   final String masterId;
   final String name;
   const SubCategoryMasterScreen({
-    Key? key,
+    super.key,
     required this.masterId,
     required this.name,
-  }) : super(key: key);
+  });
 
   @override
   State<SubCategoryMasterScreen> createState() =>
@@ -120,7 +121,7 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                     children: [
                       Text(
                         '수선',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       Icon(item.isBookmark
                           ? Icons.bookmark
@@ -130,7 +131,7 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                   const SizedBox(height: 12),
                   Text(
                     item.title,
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 12),
                   Row(
@@ -148,7 +149,9 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                         ),
                         ignoreGestures: true,
                         onRatingUpdate: (rating) {
-                          print(rating);
+                          if (kDebugMode) {
+                            print(rating);
+                          }
                         },
                       ),
                       GestureDetector(
@@ -156,7 +159,7 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                           var id = Random().nextInt(100);
                           GoRouter.of(context).goNamed(
                             'review',
-                            params: {
+                            pathParameters: {
                               'reviewId': id.toString(),
                               'name': widget.name,
                               'id': widget.masterId
@@ -174,7 +177,7 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                           padding: const EdgeInsets.only(bottom: 2),
                           child: Text(
                             '${item.reviewCount.toStringAsFixed(0)} 리뷰보기',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
                       ),
@@ -183,22 +186,22 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                   const SizedBox(height: 12),
                   Text(
                     '${item.price.toStringAsFixed(0)}원 ~',
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(height: 52),
                   Text(
                     '소개',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 20),
                   Text(
                     item.description,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(height: 28),
                   Text(
                     '정보',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -207,13 +210,13 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                           flex: 1,
                           child: Text(
                             '연락처',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleSmall,
                           )),
                       Expanded(
                           flex: 3,
                           child: Text(
                             '결제 후  전화상담 제공',
-                            style: Theme.of(context).textTheme.headline4,
+                            style: Theme.of(context).textTheme.titleLarge,
                           )),
                     ],
                   ),
@@ -224,13 +227,13 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                           flex: 1,
                           child: Text(
                             '위치',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleSmall,
                           )),
                       Expanded(
                           flex: 3,
                           child: Text(
                             '서울 강남구',
-                            style: Theme.of(context).textTheme.headline4,
+                            style: Theme.of(context).textTheme.titleLarge,
                           )),
                     ],
                   ),
@@ -241,30 +244,30 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                           flex: 1,
                           child: Text(
                             '거래 정보',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleSmall,
                           )),
                       Expanded(
                           flex: 3,
                           child: Text(
                             '택배 or 직접방문 가능',
-                            style: Theme.of(context).textTheme.headline4,
+                            style: Theme.of(context).textTheme.titleLarge,
                           )),
                     ],
                   ),
                   const SizedBox(height: 28),
                   Text(
                     '서비스 제공 정보',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 20),
                   Text(
                     '#가방리폼전문 #명품전문 # 가방제작마스터 #셀린전문 #리폼 #프라다전문',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(height: 28),
                   Text(
                     '마스터의 포트폴리오',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ],
               ),
@@ -303,7 +306,7 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                     ),
                     child: Text(
                       '쪽지',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             color: ColorConfig.primaryColor,
                           ),
                     ),
@@ -320,7 +323,7 @@ class _SubCategoryMasterScreenState extends State<SubCategoryMasterScreen> {
                     ),
                     child: Text(
                       '마스터에게 요청서 보내기',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             color: ColorConfig.whiteColor,
                           ),
                     ),

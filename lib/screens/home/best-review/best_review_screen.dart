@@ -53,7 +53,9 @@ class BestReviewScreen extends StatelessWidget {
                       Theme.of(context).colorScheme.primary.withOpacity(0.2),
                   onTap: () {
                     GoRouter.of(context).goNamed('review-detail',
-                        params: {'id': reviewList[index].id.toString()});
+                        pathParameters: {
+                          'id': reviewList[index].id.toString()
+                        });
                   },
                   child: Card(
                     child: Column(

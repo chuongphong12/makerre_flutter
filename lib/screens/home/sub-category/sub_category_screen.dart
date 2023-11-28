@@ -11,7 +11,7 @@ import 'package:makerre_flutter/repositories/service_repository.dart';
 
 class SubCategoryScreen extends StatefulWidget {
   final IService service;
-  const SubCategoryScreen({Key? key, required this.service}) : super(key: key);
+  const SubCategoryScreen({super.key, required this.service});
 
   @override
   State<SubCategoryScreen> createState() => _SubCategoryScreenState();
@@ -218,7 +218,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                         child: Text(
                           '${activeIndex + 1}/10',
                           style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     color: const Color(0xFFFFFFFF),
                                   ),
                         ),
@@ -232,7 +232,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                   children: [
                     Text(
                       '총 123건',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Material(
                       shape: RoundedRectangleBorder(
@@ -257,7 +257,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                             children: [
                               Text(
                                 '거리순',
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               const Icon(
                                 Icons.keyboard_arrow_down,
@@ -286,7 +286,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                           onTap: () {
                             context.goNamed(
                               'sub-cate-master',
-                              params: {
+                              pathParameters: {
                                 'name': widget.service.name,
                                 'id': val.id.toString(),
                               },
@@ -308,7 +308,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                                   Text(
                                     val.title,
                                     style:
-                                        Theme.of(context).textTheme.headline4,
+                                        Theme.of(context).textTheme.titleLarge,
                                   ),
                                   val.isBookmark
                                       ? const Icon(Icons.bookmark)
@@ -320,12 +320,12 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                                 val.description,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.headline6,
+                                style: Theme.of(context).textTheme.titleSmall,
                               ),
                               const SizedBox(height: 10),
                               Text(
                                 '${val.price.toStringAsFixed(0)} 원 ~',
-                                style: Theme.of(context).textTheme.headline4,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                               const SizedBox(height: 6),
                               Row(
@@ -343,14 +343,14 @@ class _SubCategoryScreenState extends State<SubCategoryScreen>
                                         val.rating.toStringAsFixed(1),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1,
+                                            .bodyLarge,
                                       ),
                                     ],
                                   ),
                                   Text(
                                     '${val.reviewCount.toStringAsFixed(0)} 리뷰',
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ],
                               ),
